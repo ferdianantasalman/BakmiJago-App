@@ -6,7 +6,6 @@ import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomeProductView extends StatelessWidget {
   const HomeProductView({super.key});
@@ -14,7 +13,6 @@ class HomeProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pController = Get.put(ProductController());
-    final pageC = Get.put(PageIndexController());
     return Scaffold(
       backgroundColor: cWhite,
       appBar: AppBar(
@@ -39,11 +37,11 @@ class HomeProductView extends StatelessWidget {
                     Container(
                       height: 32,
                       width: 32,
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          "https://www.w3schools.com/w3images/avatar2.png",
-                        ),
-                      ),
+                      // child: CircleAvatar(
+                      //   backgroundImage: NetworkImage(
+                      //     "https://www.w3schools.com/w3images/avatar2.png",
+                      //   ),
+                      // ),
                     ),
                     SizedBox(width: 10),
                     Column(
@@ -78,17 +76,26 @@ class HomeProductView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: TextField(
+                  style: TextStyle(color: cDarkYellow),
+                  cursorColor: cDarkYellow,
                   controller: pController.searchController.value,
                   decoration: InputDecoration(
                       hintText: "Search",
+                      hintStyle: TextStyle(color: cDarkYellow),
+                      focusColor: cDarkYellow,
                       suffixIcon: IconButton(
-                          icon: const Icon(Icons.clear),
+                          icon: const Icon(Icons.clear, color: cDarkYellow),
                           onPressed: () {
                             pController.searchController.value.clear();
                           }),
                       prefixIcon: IconButton(
-                          icon: const Icon(Icons.search), onPressed: () {}),
-                      border: OutlineInputBorder(
+                          icon: const Icon(Icons.search, color: cDarkYellow),
+                          onPressed: () {}),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: cDarkYellow),
+                          borderRadius: BorderRadius.circular(20)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: cDarkYellow),
                           borderRadius: BorderRadius.circular(20))),
                 ),
               ),
@@ -119,70 +126,6 @@ class HomeProductView extends StatelessWidget {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 70,
-        index: 0,
-        color: cYellowDark,
-        animationCurve: Curves.bounceInOut,
-        animationDuration: Duration(milliseconds: 300),
-        backgroundColor: Colors.white,
-        // style: TabStyle.fixedCircle,
-        items: [
-          const Column(
-            children: [
-              Icon(
-                Icons.wallet_travel,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Produk")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.wallet_travel,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Riwayat")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.add,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Tambah")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.folder,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Laporan")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Profile")
-            ],
-          ),
-        ],
-        onTap: (index) {
-          pageC.changePage(index);
-        },
       ),
     );
   }

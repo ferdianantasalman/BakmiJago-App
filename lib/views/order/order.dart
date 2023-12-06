@@ -3,7 +3,6 @@ import 'package:bakmi_jago_app/controllers/order_controller.dart';
 import 'package:bakmi_jago_app/controllers/page_index_controller.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +11,6 @@ class OrderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pageC = Get.put(PageIndexController());
     final orderC = Get.put(OrderController());
 
     return Scaffold(
@@ -52,11 +50,16 @@ class OrderView extends StatelessWidget {
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(12),
                                     topRight: Radius.circular(12)),
-                                child: Image.network(
-                                  orderC.image[index],
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                )),
+                                child: Image.network(orderC.image[index],
+                                    width: double.infinity, fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                  return Image.asset(
+                                    "assets/images/placeholder.png",
+                                    width: 90,
+                                    height: 80,
+                                    fit: BoxFit.cover,
+                                  );
+                                })),
                             Padding(
                               padding: const EdgeInsets.all(5),
                               child: Text(
@@ -92,70 +95,6 @@ class OrderView extends StatelessWidget {
                     })),
               ],
             )),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 60,
-        index: 2,
-        color: cYellowDark,
-        animationCurve: Curves.bounceInOut,
-        animationDuration: Duration(milliseconds: 300),
-        backgroundColor: Colors.white,
-        // style: TabStyle.fixedCircle,
-        items: [
-          const Column(
-            children: [
-              Icon(
-                Icons.wallet_travel,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Produk")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.wallet_travel,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Riwayat")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.add,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Tambah")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.folder,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Laporan")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Profile")
-            ],
-          ),
-        ],
-        onTap: (index) {
-          pageC.changePage(index);
-        },
       ),
     );
   }

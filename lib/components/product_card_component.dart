@@ -26,11 +26,16 @@ class ProductCardComponent extends StatelessWidget {
           ClipRRect(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-              child: Image.network(
-                image,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              )),
+              child: Image.network(image,
+                  width: double.infinity, fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  "assets/images/placeholder.png",
+                  width: 90,
+                  height: 80,
+                  fit: BoxFit.cover,
+                );
+              })),
           Padding(
             padding: const EdgeInsets.all(5),
             child: Text(

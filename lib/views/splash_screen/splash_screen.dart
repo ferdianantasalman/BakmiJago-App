@@ -1,5 +1,6 @@
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
+import 'package:bakmi_jago_app/views/bottom_navigation_bar.dart';
 import 'package:bakmi_jago_app/views/product/home_product_view.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class SplashScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), (() {
-      Get.offAll(HomeProductView());
+      Get.offAll(const BottomNavBar());
     }));
     return Scaffold(
       body: Center(

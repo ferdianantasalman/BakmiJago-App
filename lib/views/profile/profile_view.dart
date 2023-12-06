@@ -3,16 +3,13 @@ import 'package:bakmi_jago_app/controllers/page_index_controller.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final pageC = Get.put(PageIndexController());
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -32,11 +29,11 @@ class ProfileView extends StatelessWidget {
                 Container(
                   height: 32,
                   width: 32,
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      "https://www.w3schools.com/w3images/avatar2.png",
-                    ),
-                  ),
+                  // child: CircleAvatar(
+                  //   backgroundImage: NetworkImage(
+                  //     "https://www.w3schools.com/w3images/avatar2.png",
+                  //   ),
+                  // ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
@@ -64,70 +61,6 @@ class ProfileView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 60,
-        index: 4,
-        color: cYellowDark,
-        animationCurve: Curves.bounceInOut,
-        animationDuration: Duration(milliseconds: 300),
-        backgroundColor: Colors.white,
-        // style: TabStyle.fixedCircle,
-        items: [
-          const Column(
-            children: [
-              Icon(
-                Icons.wallet_travel,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Produk")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.wallet_travel,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Riwayat")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.add,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Tambah")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.folder,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Laporan")
-            ],
-          ),
-          const Column(
-            children: [
-              Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.white,
-              ),
-              Text("Profile")
-            ],
-          ),
-        ],
-        onTap: (index) {
-          pageC.changePage(index);
-        },
       ),
     );
   }
