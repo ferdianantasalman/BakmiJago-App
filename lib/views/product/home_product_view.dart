@@ -4,6 +4,7 @@ import 'package:bakmi_jago_app/controllers/product_controller.dart';
 import 'package:bakmi_jago_app/main.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
+import 'package:bakmi_jago_app/views/product/add_product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,13 +38,13 @@ class HomeProductView extends StatelessWidget {
                     Container(
                       height: 32,
                       width: 32,
-                      // child: CircleAvatar(
-                      //   backgroundImage: NetworkImage(
-                      //     "https://www.w3schools.com/w3images/avatar2.png",
-                      //   ),
-                      // ),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          "https://www.w3schools.com/w3images/avatar2.png",
+                        ),
+                      ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -59,7 +60,9 @@ class HomeProductView extends StatelessWidget {
                     ),
                     const Spacer(),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(const AddProductView());
+                      },
                       child: Text("Tambah"),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: cWhite,
@@ -76,12 +79,12 @@ class HomeProductView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: TextField(
-                  style: TextStyle(color: cDarkYellow),
+                  style: const TextStyle(color: cDarkYellow),
                   cursorColor: cDarkYellow,
                   controller: pController.searchController.value,
                   decoration: InputDecoration(
                       hintText: "Search",
-                      hintStyle: TextStyle(color: cDarkYellow),
+                      hintStyle: const TextStyle(color: cDarkYellow),
                       focusColor: cDarkYellow,
                       suffixIcon: IconButton(
                           icon: const Icon(Icons.clear, color: cDarkYellow),
@@ -92,10 +95,10 @@ class HomeProductView extends StatelessWidget {
                           icon: const Icon(Icons.search, color: cDarkYellow),
                           onPressed: () {}),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: cDarkYellow),
+                          borderSide: const BorderSide(color: cDarkYellow),
                           borderRadius: BorderRadius.circular(20)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: cDarkYellow),
+                          borderSide: const BorderSide(color: cDarkYellow),
                           borderRadius: BorderRadius.circular(20))),
                 ),
               ),
@@ -107,16 +110,16 @@ class HomeProductView extends StatelessWidget {
                   style: bold.copyWith(color: cBlack, fontSize: 20),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Obx(() => GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: pController.name.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 8.0,
                       mainAxisSpacing: 8.0,
-                      mainAxisExtent: 180),
+                      mainAxisExtent: 210),
                   itemBuilder: (context, index) {
                     return ProductCardComponent(
                         image: pController.image[index],

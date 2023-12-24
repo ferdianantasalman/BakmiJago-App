@@ -1,0 +1,17 @@
+const String baseUrl = 'https://api.ebarakah.id/';
+const String keyRoleId = 'roleId';
+const String userToken = 'userToken';
+const String currentUserId = 'userId';
+const String currentPathImg = 'pathImg';
+const String currentListPathImg = 'listPathImg';
+const String currentAddressId = 'addressId';
+const sqfliteDatabaseName = 'cart.db';
+const sqfliteDatabaseVersion = 1;
+const cartTable = 'cart';
+const cartColumnId = 'id';
+const cartColumnName = 'name';
+const cartColumnQuantity = 'quantity';
+const cartColumnPrice = 'price';
+const cartColumnImage = 'image';
+const cartColumSubtotalPerItem = 'subtotal';
+const cartColumnTaxPerItem = 'tax';

@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 
 class ProductController extends GetxController {
   Rx<TextEditingController> searchController = TextEditingController().obs;
+  Rx<TextEditingController> codeController = TextEditingController().obs;
+  Rx<TextEditingController> productController = TextEditingController().obs;
+  Rx<TextEditingController> priceController = TextEditingController().obs;
+  Rx<TextEditingController> stockController = TextEditingController().obs;
 
   final name = [
     "Bakmi Jawa",

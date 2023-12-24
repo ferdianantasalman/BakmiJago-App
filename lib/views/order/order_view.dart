@@ -1,8 +1,10 @@
 import 'package:bakmi_jago_app/components/product_card_component.dart';
 import 'package:bakmi_jago_app/controllers/order_controller.dart';
 import 'package:bakmi_jago_app/controllers/page_index_controller.dart';
+import 'package:bakmi_jago_app/models/order_model.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
+import 'package:bakmi_jago_app/views/order/order_cart_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,13 +14,12 @@ class OrderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderC = Get.put(OrderController());
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: cWhite,
         title: Text(
-          "Order",
+          "Pesanan",
           style: bold.copyWith(fontSize: 25, color: cYellowDark),
         ),
         centerTitle: true,
@@ -47,7 +48,7 @@ class OrderView extends StatelessWidget {
                         child: Column(
                           children: [
                             ClipRRect(
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(12),
                                     topRight: Radius.circular(12)),
                                 child: Image.network(orderC.image[index],
@@ -77,9 +78,23 @@ class OrderView extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                                padding: EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(2),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    // orderC
+                                    //     .addToCart(CartModel(
+                                    //         id: stockModel.id,
+                                    //         name: stockModel.name,
+                                    //         price: stockModel.price!,
+                                    //         quantity: 1,
+                                    //         image: stockModel.image!,
+                                    //         subtotalPerItem: stockModel.price!,
+                                    //         tax: (stockModel.price! * 10 / 100)
+                                    //             .round()))
+                                    //     .then((value) =>
+                                    //         Get.off(const OrderCartView()));
+                                    Get.to(const OrderCartView());
+                                  },
                                   child: Text("Tambah"),
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: cWhite,

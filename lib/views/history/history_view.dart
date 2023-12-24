@@ -73,7 +73,7 @@ class HistoryView extends StatelessWidget {
                     controller: historyC.dateController.value,
                     hintText: "Pilih Tanggal",
                     obsecureText: false),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 // Obx(() => ListView.builder(

@@ -1,6 +1,7 @@
 import 'package:bakmi_jago_app/controllers/page_index_controller.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
+import 'package:bakmi_jago_app/views/report/outcome/add_outcome_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,9 +36,18 @@ class ReportView extends StatelessWidget {
           Center(
               child: Text("Laporan Pemasukan",
                   style: regular.copyWith(color: cYellowDark, fontSize: 20))),
-          Center(
-              child: Text("Laporan Pengeluaran",
-                  style: regular.copyWith(color: cYellowDark, fontSize: 20))),
+          Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Get.to(const AddOutcomeView());
+              },
+              backgroundColor: cYellowDark,
+              child: Icon(Icons.add),
+            ),
+            body: Center(
+                child: Text("Laporan Pengeluaran",
+                    style: regular.copyWith(color: cYellowDark, fontSize: 20))),
+          ),
           Center(
               child: Text("Laporan Penjualan",
                   style: regular.copyWith(color: cYellowDark, fontSize: 20))),

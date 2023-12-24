@@ -1,5 +1,5 @@
 import 'package:bakmi_jago_app/views/history/history_view.dart';
-import 'package:bakmi_jago_app/views/order/order.dart';
+import 'package:bakmi_jago_app/views/order/order_view.dart';
 import 'package:bakmi_jago_app/views/product/home_product_view.dart';
 import 'package:bakmi_jago_app/views/profile/profile_view.dart';
 import 'package:bakmi_jago_app/views/report/report_view.dart';

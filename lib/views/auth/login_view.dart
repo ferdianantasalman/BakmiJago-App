@@ -1,6 +1,7 @@
 import 'package:bakmi_jago_app/components/text_field_component.dart';
 import 'package:bakmi_jago_app/controllers/auth_controller.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
+import 'package:bakmi_jago_app/views/bottom_navigation_bar/bottom_navigation_bar_owner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +31,7 @@ class LoginView extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Image.asset(
-                    'assets/images/login.jpg',
+                    'assets/images/logo.jpg',
                     width: 300,
                     height: 250,
                   ),
@@ -60,7 +61,9 @@ class LoginView extends StatelessWidget {
                         padding: const EdgeInsets.all(16.0),
                         child: ElevatedButton(
                           child: Text("Login"),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.offAll(const BottomNavBarOwner());
+                          },
                           // controller.formKey.value.currentState!.validate()
                           //     ? controller.loginUser()
                           //     : null,

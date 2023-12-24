@@ -1,6 +1,8 @@
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
+import 'package:bakmi_jago_app/views/product/add_product_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductCardComponent extends StatelessWidget {
   const ProductCardComponent(
@@ -49,7 +51,108 @@ class ProductCardComponent extends StatelessWidget {
               "Rp. $price",
               style: bold.copyWith(color: cYellowDark, fontSize: 15),
             ),
-          )
+          ),
+          Padding(
+              padding: const EdgeInsets.all(2),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      Get.to(const AddProductView(isEdit: true));
+                    },
+                    style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(cYellowDark),
+                      side: MaterialStatePropertyAll(
+                        BorderSide(color: cYellowDark),
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.edit,
+                      color: cYellowDark,
+                      size: 20,
+                    ),
+                  ),
+                  OutlinedButton(
+                    style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(cYellowDark),
+                      side: MaterialStatePropertyAll(
+                        BorderSide(color: cYellowDark),
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.delete,
+                      color: cYellowDark,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      Get.dialog(
+                        Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            width: 350,
+                            height: 180,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Konfirmasi Untuk Hapus Data?",
+                                    style: TextStyle(
+                                      color: cYellowDark,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    "Dengan mengkonfirmasi anda mensetujui bahwa anda akan menghapus data tersebut",
+                                    style: TextStyle(
+                                      color: Color(0xff808D9D),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ElevatedButton(
+                                        style: const ButtonStyle(
+                                          elevation:
+                                              MaterialStatePropertyAll(0),
+                                          backgroundColor:
+                                              MaterialStatePropertyAll<Color>(
+                                            cYellowDark,
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                        child: const Text("Konfirmasi"),
+                                      ),
+                                      OutlinedButton(
+                                        onPressed: () => Get.back(),
+                                        style: const ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStatePropertyAll(
+                                                  cYellowDark),
+                                          side: MaterialStatePropertyAll(
+                                            BorderSide(color: cYellowDark),
+                                          ),
+                                        ),
+                                        child: const Text("Batalkan"),
+                                      )
+                                    ],
+                                  )
+                                ]),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ))
         ],
       ),
     );

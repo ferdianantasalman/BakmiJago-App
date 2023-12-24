@@ -43,7 +43,7 @@ class DateTimeFieldComponent extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.black.withOpacity(0.25)),
-        fillColor: Colors.black.withOpacity(0.04),
+        fillColor: cWhite,
         prefixIcon: Icon(
           Icons.calendar_today_rounded,
           color: Colors.black.withOpacity(0.25),
