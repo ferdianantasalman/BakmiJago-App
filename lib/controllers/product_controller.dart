@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {
+  Rx<bool> isLoading = false.obs;
   Rx<TextEditingController> searchController = TextEditingController().obs;
   Rx<TextEditingController> codeController = TextEditingController().obs;
   Rx<TextEditingController> productController = TextEditingController().obs;

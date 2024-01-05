@@ -1,5 +1,7 @@
-import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:bakmi_jago_app/models/order_model.dart';
 import 'package:bakmi_jago_app/utils/cart_database_helper.dart';
 import 'package:bakmi_jago_app/views/order/order_view.dart';
@@ -50,6 +52,56 @@ class OrderController extends GetxController {
     30000,
     50000,
   ].obs;
+
+  // Future increaseQuantity(CartModel item) async {
+  //   CartModel cartModel = CartModel(
+  //       id: item.id,
+  //       name: item.name,
+  //       price: item.price,
+  //       quantity: item.quantity! + 1,
+  //       image: item.image,
+  //       subtotalPerItem: item.subtotalPerItem! + item.price!,
+  //       tax: ((item.subtotalPerItem! + item.price!) * 10 / 100).round());
+  //   try {
+  //     await CartDatabaseHelper.instance
+  //         .update(cartModel)
+  //         .then((value) => getCartItems().then((value) => getItemSubtotal()));
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
+
+  // Future decreaseQuantity(CartModel item) async {
+  //   CartModel cartModel = CartModel(
+  //       id: item.id,
+  //       name: item.name,
+  //       price: item.price,
+  //       quantity: item.quantity! - 1,
+  //       image: item.image,
+  //       subtotalPerItem: item.subtotalPerItem! - item.price!,
+  //       tax: ((item.subtotalPerItem! - item.price!) * 10 / 100).round());
+  //   try {
+  //     await CartDatabaseHelper.instance.update(cartModel).then((value) {
+  //       if (cartItems.isNotEmpty) {
+  //         getCartItems().then((value) => getItemSubtotal());
+  //       }
+  //     });
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
+
+  // Future deleteCartItem(int id) async {
+  //   try {
+  //     await CartDatabaseHelper.instance.delete(id).then((value) {
+  //       if (cartItems.isNotEmpty) {
+  //         getCartItems().then((value) => getItemSubtotal());
+  //       }
+  //     });
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
 
   Future addToCart(OrderModel orderModel) async {
     try {

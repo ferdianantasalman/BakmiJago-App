@@ -4,6 +4,7 @@ import 'package:bakmi_jago_app/controllers/user_controller.dart';
 import 'package:bakmi_jago_app/resources/constant.dart';
 import 'package:bakmi_jago_app/resources/endpoint.dart';
 import 'package:bakmi_jago_app/views/auth/login_view.dart';
+import 'package:bakmi_jago_app/views/bottom_navigation_bar/bottom_navigation_bar_cashier.dart';
 import 'package:bakmi_jago_app/views/bottom_navigation_bar/bottom_navigation_bar_owner.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,10 @@ class AuthController extends GetxController {
   Rx<TextEditingController> emailController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
   Rx<TextEditingController> nameController = TextEditingController().obs;
-  Rx<TextEditingController> usernameController = TextEditingController().obs;
-  Rx<TextEditingController> phoneNumberController = TextEditingController().obs;
-  Rx<TextEditingController> addressController = TextEditingController().obs;
   final formKey = GlobalKey<FormState>().obs;
   final RxList<String> roles = <String>[
-    "Kasir",
-    "Pemilik",
+    "owner",
+    "cashier",
   ].obs;
   RxInt role = RxInt(0);
   RxBool isLoading = false.obs;
@@ -31,11 +29,11 @@ class AuthController extends GetxController {
 
   convertRole(String roleName) {
     switch (roleName) {
-      case "Pemilik":
+      case "owner":
         role.value = 2;
         log(role.value.toString());
         return role.value;
-      case "Kasir":
+      case "cashier":
         role.value = 3;
         log(role.value.toString());
         return role.value;
@@ -49,19 +47,13 @@ class AuthController extends GetxController {
       isLoading.value = true;
       await AuthProvider.registerUser(
         role.value,
-        usernameController.value.text,
         nameController.value.text,
         emailController.value.text,
         passwordController.value.text,
-        int.parse(phoneNumberController.value.text),
-        addressController.value.text,
       );
-      usernameController.value.clear();
       nameController.value.clear();
       emailController.value.clear();
       passwordController.value.clear();
-      phoneNumberController.value.clear();
-      addressController.value.clear();
     } on DioError catch (e) {
       throw Exception("$e with ${e.message}");
     } finally {
@@ -71,20 +63,30 @@ class AuthController extends GetxController {
 
   Future loginUser() async {
     try {
-      isLoading.value = false;
+      isLoading.value = true;
+      log("email = ${emailController.value.text}");
+      log("password = ${passwordController.value.text}");
       await AuthProvider.login(
         emailController.value.text,
         passwordController.value.text,
       ).then((value) async {
-        // print(value);
-        int roleId = int.parse(value['role_id'].toString());
+        log("LOGIN VALUE => $value");
+        log("LOGIN Role => ${value['role_id']}");
+
+        int roleId = value['role_id'];
+        log("roleId => $roleId");
+        // int roleId = int.parse(value['role_id'].toString());
         box.write(userToken, value['access_token']);
         box.write(keyRoleId, roleId);
+        log("ROLE => ${box.read(keyRoleId)}");
+        log("Token => ${box.read(userToken)}");
         emailController.value.clear();
         passwordController.value.clear();
-        await UserController()
-            .getInfoUser()
-            .then((value) => box.write(currentUserId, value.id));
+        // await UserController()
+        //     .getInfoUser()
+        //     .then((value) => box.write(currentUserId, value['id']));
+        log("Token => ${box.read(userToken)}");
+
         switch (roleId) {
           case 1:
             log(roleId.toString());
@@ -97,7 +99,7 @@ class AuthController extends GetxController {
             return Get.offAll(const BottomNavBarOwner());
           case 3:
             log(roleId.toString());
-            return Get.offAll(const BottomNavBarOwner());
+            return Get.offAll(const BottomNavBarCashier());
           default:
             break;
         }

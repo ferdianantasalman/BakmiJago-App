@@ -1,5 +1,7 @@
 import 'package:bakmi_jago_app/controllers/order_controller.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
+import 'package:bakmi_jago_app/resources/font.dart';
+import 'package:bakmi_jago_app/utils/rupiah_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,13 +44,13 @@ class ItemOrderCartComponent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Nama Produk",
-                        style:
-                            const TextStyle(color: cYellowDark, fontSize: 20),
+                        "Bakmi Ayam",
+                        style: bold.copyWith(color: cYellowDark, fontSize: 20),
                       ),
                       Text(
-                        "asdsa",
-                        style: const TextStyle(color: cDarkGray, fontSize: 16),
+                        RupiahUtils.beRupiah(10000),
+                        style:
+                            regular.copyWith(color: cYellowLight, fontSize: 15),
                       ),
                       Row(children: [
                         GestureDetector(

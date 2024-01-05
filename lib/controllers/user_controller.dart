@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bakmi_jago_app/models/user_model.dart';
 import 'package:bakmi_jago_app/providers/user_provider.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ class UserController extends GetxController {
 
   // GET Info User or Profile
   Future getInfoUser() async {
+    log("Mulai getinfouser");
     try {
       isLoading.value = true;
       final user = await UserProvider.getUser();
@@ -17,6 +20,7 @@ class UserController extends GetxController {
       throw Exception(e);
     } finally {
       isLoading.value = false;
+      log("selesai getinfouser");
     }
   }
 

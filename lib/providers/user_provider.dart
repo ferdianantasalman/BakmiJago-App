@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bakmi_jago_app/models/user_model.dart';
 import 'package:bakmi_jago_app/resources/endpoint.dart';
@@ -26,9 +27,9 @@ class UserProvider {
 
       if (response.statusCode == 200) {
         var userModel = UserModel.fromJson(userData);
+        log("USERMODEL => $userModel");
         return userModel;
       }
-
       return userModel;
     } catch (e) {
       throw Exception(e);

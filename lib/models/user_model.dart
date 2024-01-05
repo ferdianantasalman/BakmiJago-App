@@ -2,11 +2,8 @@ class UserModel {
   int? id;
   int? roleId;
   String? name;
-  String? username;
   String? email;
-  int? noTelpon;
-  String? alamat;
-  String? status;
+  String? emailVerifiedAt;
   String? createdAt;
   String? updatedAt;
   Role? role;
@@ -15,12 +12,9 @@ class UserModel {
       {this.id,
       this.roleId,
       this.name,
-      this.username,
       this.email,
-      this.noTelpon,
-      this.alamat,
-      this.status,
       this.createdAt,
+      this.emailVerifiedAt,
       this.updatedAt,
       this.role});
 
@@ -28,11 +22,8 @@ class UserModel {
     id = int.parse(json['id'].toString());
     roleId = int.parse(json['role_id'].toString());
     name = json['name'];
-    username = json['username'];
     email = json['email'];
-    noTelpon = int.parse(json['no_telpon'].toString());
-    alamat = json['alamat'];
-    status = json['status'];
+    emailVerifiedAt = json['email_verified_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     role = json['role'] != null ? Role.fromJson(json['role']) : null;
@@ -43,11 +34,8 @@ class UserModel {
     data['id'] = id;
     data['role_id'] = roleId;
     data['name'] = name;
-    data['username'] = username;
     data['email'] = email;
-    data['no_telpon'] = noTelpon;
-    data['alamat'] = alamat;
-    data['status'] = status;
+    data['email_verified_at'] = emailVerifiedAt;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     if (role != null) {

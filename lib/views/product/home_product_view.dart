@@ -111,21 +111,31 @@ class HomeProductView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Obx(() => GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: pController.name.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      mainAxisExtent: 210),
-                  itemBuilder: (context, index) {
-                    return ProductCardComponent(
-                        image: pController.image[index],
-                        name: pController.name[index],
-                        price: pController.price[index]);
-                  })),
+              Obx(() => pController.isLoading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(color: cYellowDark),
+                    )
+                  : pController.name.isEmpty
+                      ? Center(
+                          child: Text("Data tidak ditemukan",
+                              style: regular.copyWith(
+                                  color: cBlack, fontSize: 20)))
+                      : GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: pController.name.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 8.0,
+                                  mainAxisSpacing: 8.0,
+                                  mainAxisExtent: 210),
+                          itemBuilder: (context, index) {
+                            return ProductCardComponent(
+                                image: pController.image[index],
+                                name: pController.name[index],
+                                price: pController.price[index]);
+                          })),
             ],
           ),
         ),

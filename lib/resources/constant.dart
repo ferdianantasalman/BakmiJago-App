@@ -1,4 +1,4 @@
-const String baseUrl = 'https://api.ebarakah.id/';
+const String baseUrl = 'http://192.168.0.121:8000/';
 const String keyRoleId = 'roleId';
 const String userToken = 'userToken';
 const String currentUserId = 'userId';

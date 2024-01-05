@@ -28,11 +28,12 @@ class TextFieldComponent extends StatelessWidget {
         filled: true,
         contentPadding: EdgeInsets.zero,
         hintText: hintText,
+        hintStyle: TextStyle(color: cYellowDark),
         // hintStyle: TextStyle(color: Colors.black.withOpacity(0.25)),
         fillColor: cWhite,
         prefixIcon: Icon(
           icon,
-          color: Colors.black.withOpacity(0.25),
+          color: cYellowDark,
         ),
         focusColor: cYellowDark,
         focusedBorder: OutlineInputBorder(

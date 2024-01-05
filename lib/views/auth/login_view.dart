@@ -1,7 +1,7 @@
+import 'package:bakmi_jago_app/components/button_component.dart';
 import 'package:bakmi_jago_app/components/text_field_component.dart';
 import 'package:bakmi_jago_app/controllers/auth_controller.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
-import 'package:bakmi_jago_app/views/bottom_navigation_bar/bottom_navigation_bar_owner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget {
                   const Text(
                     'Login',
                     style: TextStyle(
-                      color: cPrimaryGreen,
+                      color: cYellowDark,
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                     ),
@@ -59,18 +59,26 @@ class LoginView extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                          child: Text("Login"),
-                          onPressed: () {
-                            Get.offAll(const BottomNavBarOwner());
-                          },
-                          // controller.formKey.value.currentState!.validate()
-                          //     ? controller.loginUser()
-                          //     : null,
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: cWhite,
-                              foregroundColor: cYellowDark),
+                        child: ButtonComponent(
+                          "Login",
+                          onPressed: () =>
+                              controller.formKey.value.currentState!.validate()
+                                  ? controller.loginUser()
+                                  : null,
+                          color: cYellowDark,
                         ),
+                        // ElevatedButton(
+                        //   child: Text("Login"),
+                        //   onPressed: () {
+                        //     // Get.offAll(const BottomNavBarOwner());
+                        //     controller.formKey.value.currentState!.validate()
+                        //         ? controller.loginUser()
+                        //         : null;
+                        //   },
+                        //   style: ElevatedButton.styleFrom(
+                        //       backgroundColor: cWhite,
+                        //       foregroundColor: cYellowDark),
+                        // ),
                       )
                     ],
                   ),

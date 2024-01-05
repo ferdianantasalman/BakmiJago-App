@@ -28,6 +28,9 @@ class AuthProvider {
       final responseJson = json.decode(response.body);
 
       if (response.statusCode == 200) {
+        log("Status Code => ${response.statusCode}");
+
+        log("RETURN LOGIN => ${responseJson}");
         return responseJson;
       }
     } catch (e) {
@@ -55,11 +58,8 @@ class AuthProvider {
   static Future<dynamic> registerUser(
     int roleId,
     String name,
-    String username,
     String email,
     String password,
-    int phoneNumber,
-    String address,
   ) async {
     final Dio dio = Dio();
     String registerUrl = baseUrl + Endpoint.user_register;
@@ -71,11 +71,8 @@ class AuthProvider {
         data: FormData.fromMap({
           'role_id': roleId,
           'name': name,
-          'username': username,
           'email': email,
           'password': password,
-          'no_telpon': phoneNumber,
-          'alamat': address,
         }),
         options: Options(headers: {
           'Authorization': 'Bearer $token',

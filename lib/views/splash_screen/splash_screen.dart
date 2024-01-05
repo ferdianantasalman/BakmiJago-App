@@ -21,10 +21,12 @@ class SplashScreenView extends StatelessWidget {
       Get.offAll(const BottomNavBarOwner());
     }));
     return Scaffold(
+      backgroundColor: cWhite,
       body: Center(
-        child: Text("BakmiJago",
-            style: bold.copyWith(fontSize: 20, color: cYellowDark)),
-      ),
+          child: Image.asset("assets/images/logo.jpg", width: 300, height: 300)
+          // Text("BakmiJago",
+          //     style: bold.copyWith(fontSize: 20, color: cYellowDark)),
+          ),
     );
   }
 }

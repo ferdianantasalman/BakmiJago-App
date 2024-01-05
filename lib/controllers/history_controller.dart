@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HistoryController extends GetxController {
+class HistoryController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  final List<Tab> myTabs = <Tab>[
+    const Tab(
+      text: "Hari ini",
+    ),
+    const Tab(text: "Bulan ini"),
+    const Tab(text: "Tahun ini"),
+  ];
+  RxBool isLoading = false.obs;
   Rx<TextEditingController> dateController = TextEditingController().obs;
+
+  @override
+  void onInit() {
+    tabController = TabController(vsync: this, length: myTabs.length);
+
+    // getHistoryDay();
+    // getHistoryMonth();
+    // getHistoryYear();
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    tabController.dispose();
+    super.onClose();
+  }
 
   final name = [
     "Bakmi Jawa",
@@ -42,4 +69,28 @@ class HistoryController extends GetxController {
     30000,
     50000,
   ].obs;
+
+  void getHistoryDay() {
+    isLoading.value = true;
+
+    // Fetch Data
+
+    isLoading.value = false;
+  }
+
+  void getHistoryMonth() {
+    isLoading.value = true;
+
+    // Fetch Data
+
+    isLoading.value = false;
+  }
+
+  void getHistoryYear() {
+    isLoading.value = true;
+
+    // Fetch Data
+
+    isLoading.value = false;
+  }
 }
