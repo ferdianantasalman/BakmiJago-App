@@ -41,6 +41,7 @@ class AuthProvider {
   static Future<dynamic> refreshToken(String token) async {
     String refreshTokenUrl = baseUrl + Endpoint.user_refresh_token;
 
+    log("Token $token");
     try {
       http.Response response = await http.post(
         Uri.parse(refreshTokenUrl),

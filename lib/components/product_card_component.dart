@@ -1,4 +1,6 @@
+import 'package:bakmi_jago_app/models/product/product_model.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
+import 'package:bakmi_jago_app/resources/constant.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/views/product/add_product_view.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +9,18 @@ import 'package:get/get.dart';
 class ProductCardComponent extends StatelessWidget {
   const ProductCardComponent(
       {super.key,
-      required this.image,
-      required this.name,
-      required this.price});
+      required this.productModel,
+      required this.onTapEdit,
+      required this.onTapDelete});
 
-  final dynamic image;
-  final String name;
-  final int price;
+  final ProductModel productModel;
+  final Function() onTapEdit;
+  final Function() onTapDelete;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 30),
       decoration: BoxDecoration(
           border: Border.all(color: cBlack),
           borderRadius: BorderRadius.circular(12),
@@ -26,10 +28,13 @@ class ProductCardComponent extends StatelessWidget {
       child: Column(
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-              child: Image.network(image,
-                  width: double.infinity, fit: BoxFit.cover,
+              child: Image.network(
+                  "${baseUrl}public/products/${productModel.image}",
+                  width: double.infinity,
+                  height: 100,
+                  fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) {
                 return Image.asset(
                   "assets/images/placeholder.png",
@@ -41,14 +46,14 @@ class ProductCardComponent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(5),
             child: Text(
-              name,
+              productModel.name!,
               style: bold.copyWith(color: cBlack, fontSize: 15),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(2),
             child: Text(
-              "Rp. $price",
+              "Rp. ${productModel.price!}",
               style: bold.copyWith(color: cYellowDark, fontSize: 15),
             ),
           ),
@@ -59,9 +64,7 @@ class ProductCardComponent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OutlinedButton(
-                    onPressed: () {
-                      Get.to(const AddProductView(isEdit: true));
-                    },
+                    onPressed: onTapEdit,
                     style: const ButtonStyle(
                       foregroundColor: MaterialStatePropertyAll(cYellowDark),
                       side: MaterialStatePropertyAll(
@@ -128,7 +131,7 @@ class ProductCardComponent extends StatelessWidget {
                                             cYellowDark,
                                           ),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: onTapDelete,
                                         child: const Text("Konfirmasi"),
                                       ),
                                       OutlinedButton(

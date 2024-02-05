@@ -1,8 +1,12 @@
 import 'package:bakmi_jago_app/components/product_card_component.dart';
+import 'package:bakmi_jago_app/controllers/cart_controller.dart';
 import 'package:bakmi_jago_app/controllers/order_controller.dart';
 import 'package:bakmi_jago_app/controllers/page_index_controller.dart';
+import 'package:bakmi_jago_app/controllers/product_controller.dart';
+import 'package:bakmi_jago_app/models/cart_model.dart';
 import 'package:bakmi_jago_app/models/order_model.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
+import 'package:bakmi_jago_app/resources/constant.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/views/order/order_cart_view.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +17,8 @@ class OrderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final oController = Get.put(OrderController());
+    final pController = Get.put(ProductController());
+    final cController = Get.put(CartController());
     return Scaffold(
       backgroundColor: cWhite,
       appBar: AppBar(
@@ -24,18 +29,33 @@ class OrderView extends StatelessWidget {
           style: bold.copyWith(fontSize: 25, color: cYellowDark),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 27),
+            child: CircleAvatar(
+              backgroundColor: cYellowDark,
+              child: IconButton(
+                onPressed: () => Get.to(const OrderCartView()),
+                icon: const Icon(
+                  Icons.shopping_cart_outlined,
+                  color: cWhite,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.only(top: 15, left: 30, right: 30),
             child: Column(
               children: [
-                Obx(() => oController.isLoading.value
+                Obx(() => pController.isLoading.value
                     ? const Center(
                         child: CircularProgressIndicator(
                         color: cYellowDark,
                       ))
-                    : oController.name.isEmpty
+                    : pController.listProductModel.isEmpty
                         ? Center(
                             child: Text("Data tidak ditemukan",
                                 style: regular.copyWith(
@@ -43,14 +63,16 @@ class OrderView extends StatelessWidget {
                         : GridView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: oController.name.length,
+                            itemCount: pController.listProductModel.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 8.0,
                                     mainAxisSpacing: 8.0,
-                                    mainAxisExtent: 220),
+                                    mainAxisExtent: 260),
                             itemBuilder: (context, index) {
+                              var itemProduct =
+                                  pController.listProductModel[index];
                               return Container(
                                 margin: EdgeInsets.only(bottom: 20),
                                 decoration: BoxDecoration(
@@ -64,9 +86,10 @@ class OrderView extends StatelessWidget {
                                             topLeft: Radius.circular(12),
                                             topRight: Radius.circular(12)),
                                         child: Image.network(
-                                            oController.image[index],
+                                            "${baseUrl}public/products/${itemProduct.image!}",
+                                            height: 100,
                                             width: double.infinity,
-                                            fit: BoxFit.cover, errorBuilder:
+                                            fit: BoxFit.contain, errorBuilder:
                                                 (context, error, stackTrace) {
                                           return Image.asset(
                                             "assets/images/placeholder.png",
@@ -78,7 +101,7 @@ class OrderView extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(5),
                                       child: Text(
-                                        oController.name[index],
+                                        itemProduct.name!,
                                         style: bold.copyWith(
                                             color: cBlack, fontSize: 15),
                                       ),
@@ -86,7 +109,7 @@ class OrderView extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(2),
                                       child: Text(
-                                        "Rp. ${oController.price[index]}",
+                                        "Rp. ${itemProduct.price}",
                                         style: bold.copyWith(
                                             color: cYellowDark, fontSize: 15),
                                       ),
@@ -95,21 +118,24 @@ class OrderView extends StatelessWidget {
                                         padding: const EdgeInsets.all(2),
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            // orderC
-                                            //     .addToCart(CartModel(
-                                            //         id: stockModel.id,
-                                            //         name: stockModel.name,
-                                            //         price: stockModel.price!,
-                                            //         quantity: 1,
-                                            //         image: stockModel.image!,
-                                            //         subtotalPerItem: stockModel.price!,
-                                            //         tax: (stockModel.price! * 10 / 100)
-                                            //             .round()))
-                                            //     .then((value) =>
-                                            //         Get.off(const OrderCartView()));
-                                            Get.to(const OrderCartView());
+                                            cController
+                                                .addToCart(CartModel(
+                                                  id: itemProduct.id,
+                                                  name: itemProduct.name,
+                                                  price: itemProduct.price,
+                                                  quantity: 1,
+                                                  image: itemProduct.image,
+                                                  subtotalPerItem:
+                                                      itemProduct.price,
+                                                ))
+                                                .then((value) => Get.to(
+                                                    const OrderCartView()));
                                           },
-                                          child: Text("Tambah"),
+                                          // child: Text("Tambah"),
+                                          child: Icon(
+                                            Icons.add,
+                                            color: cYellowDark,
+                                          ),
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor: cWhite,
                                               foregroundColor: cYellowDark),

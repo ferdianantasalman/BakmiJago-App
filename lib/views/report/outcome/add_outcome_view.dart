@@ -1,32 +1,26 @@
-import 'dart:io';
-
 import 'package:bakmi_jago_app/components/button_component.dart';
-import 'package:bakmi_jago_app/components/date_field_component.dart';
 import 'package:bakmi_jago_app/components/text_field_outline_large_component.dart';
 import 'package:bakmi_jago_app/components/text_field_outlined_component.dart';
-import 'package:bakmi_jago_app/controllers/product_controller.dart';
-import 'package:bakmi_jago_app/controllers/report.controller.dart';
-import 'package:bakmi_jago_app/controllers/select_image_controller.dart';
+import 'package:bakmi_jago_app/controllers/outcome_controller.dart';
+import 'package:bakmi_jago_app/models/report_model.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
-import 'package:bakmi_jago_app/resources/constant.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:get/get.dart';
 
 class AddOutcomeView extends StatelessWidget {
   const AddOutcomeView({
     super.key,
     this.isEdit = false,
-    // this.sphData,
+    this.reportModel,
   });
 
   final bool isEdit;
-  // final Datas? sphData;
+  final ReportModel? reportModel;
 
   @override
   Widget build(BuildContext context) {
-    final rController = Get.put(ReportController());
+    final outcomeC = Get.put(OutcomeController());
     return Scaffold(
       backgroundColor: cWhite,
       appBar: AppBar(
@@ -46,39 +40,37 @@ class AddOutcomeView extends StatelessWidget {
               children: [
                 TextFieldOutlinedComponent(
                     hintText: "Nama Pengeluaran",
-                    textController: rController.nameController.value,
+                    textController: outcomeC.nameController.value,
                     keyboardType: TextInputType.text),
                 const SizedBox(height: 10),
-                DateTimeFieldComponent(
-                    controller: rController.dateController.value,
-                    hintText: "Tanggal Pengeluaran",
-                    obsecureText: false),
-                const SizedBox(
-                  height: 20,
-                ),
+                // DateTimeFieldComponent(
+                //     controller: outcomeC.dateController.value,
+                //     hintText: "Tanggal Pengeluaran",
+                //     obsecureText: false),
+                // const SizedBox(
+                //   height: 20,
+                // ),
                 TextFieldOutlinedComponent(
                     hintText: "Jumlah Pengeluaran",
-                    textController: rController.totalController.value,
+                    textController: outcomeC.priceController.value,
                     keyboardType: TextInputType.number),
                 const SizedBox(height: 10),
                 TextFieldOutlinedLargeComponent(
                     hintText: "Keterangan",
-                    textController: rController.descController.value,
+                    textController: outcomeC.descController.value,
                     keyboardType: TextInputType.text),
                 const SizedBox(height: 10),
                 Center(
                   child: ButtonComponent(
                     "Kirim Berkas",
                     onPressed: () async {
-                      // var res = false;
-                      // if (!isEdit) {
-                      //   res =
-                      //       await controller.addSphMarketing();
-                      // } else {
-                      //   res = await controller
-                      //       .editSphMarketing(sphData!);
-                      // }
-                      // Navigator.pop(context, res);
+                      var res = false;
+                      if (!isEdit) {
+                        res = await outcomeC.addReports();
+                      } else {
+                        res = await outcomeC.editReports(reportModel!);
+                      }
+                      Navigator.pop(context, res);
                     },
                     color: cYellowDark,
                   ),

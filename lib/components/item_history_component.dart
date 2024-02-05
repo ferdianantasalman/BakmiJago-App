@@ -54,11 +54,11 @@ class ItemHistoryComponent extends StatelessWidget {
                 invoiceName,
                 style: bold.copyWith(color: cYellowDark, fontSize: 15),
               ),
-              const SizedBox(height: 3),
-              Text(
-                "$totalBarang barang",
-                style: regular.copyWith(color: cYellowLight, fontSize: 15),
-              ),
+              // const SizedBox(height: 3),
+              // Text(
+              //   "$totalBarang barang",
+              //   style: regular.copyWith(color: cYellowPrimary, fontSize: 15),
+              // ),
               const SizedBox(height: 3),
               ButtonComponent("Detail", onPressed: onTap, color: cYellowDark)
             ]),

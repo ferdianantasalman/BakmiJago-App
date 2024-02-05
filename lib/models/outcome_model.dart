@@ -1,28 +1,26 @@
 class OutcomeModel {
-  int? id;
-  String? image;
-  String? name;
-  int? price;
-  int? quantity;
-  int? subtotalPerItem;
+  String? status;
+  String? message;
+  int? outcome;
 
   OutcomeModel({
-    this.id,
-    this.name,
-    this.price,
-    this.quantity,
-    this.image,
-    this.subtotalPerItem,
+    this.status,
+    this.message,
+    this.outcome,
   });
 
-  Map<String, dynamic> toMap() {
+  OutcomeModel.fromJson(Map<String, dynamic> json) {
+    status = json["status"];
+    message = json["message"];
+    outcome =
+        json["outcome"] != null ? int.parse(json["outcome"].toString()) : null;
+  }
+
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['price'] = price;
-    data['quantity'] = quantity;
-    data['image'] = image;
-    data['subtotal'] = subtotalPerItem;
+    data['status'] = status;
+    data['message'] = message;
+    data['outcome'] = outcome;
     return data;
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:bakmi_jago_app/models/order_model.dart';
+import 'package:bakmi_jago_app/models/cart_model.dart';
 import 'package:bakmi_jago_app/resources/constant.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -33,36 +33,34 @@ class CartDatabaseHelper {
         $cartColumnQuantity INTEGER NOT NULL,
         $cartColumnPrice REAL NOT NULL,
         $cartColumnImage TEXT NOT NULL,
-        $cartColumSubtotalPerItem REAL NOT NULL,
-        $cartColumnTaxPerItem REAL NOT NULL
+        $cartColumSubtotalPerItem REAL NOT NULL
       )
     ''');
   }
 
-  Future<int> insert(OrderModel OrderModel) async {
+  Future<int> insert(CartModel cartModel) async {
     final db = await database;
-    return await db.insert(cartTable, OrderModel.toMap());
+    return await db.insert(cartTable, cartModel.toMap());
   }
 
-  Future<List<OrderModel>> query() async {
+  Future<List<CartModel>> query() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(cartTable);
     return List.generate(maps.length, (i) {
-      return OrderModel(
+      return CartModel(
           id: maps[i][cartColumnId],
           name: maps[i][cartColumnName],
           quantity: maps[i][cartColumnQuantity],
           price: maps[i][cartColumnPrice].round(),
           image: maps[i][cartColumnImage],
           subtotalPerItem: maps[i][cartColumSubtotalPerItem].round());
-      // tax: maps[i][cartColumnTaxPerItem].round());
     });
   }
 
-  Future<int> update(OrderModel OrderModel) async {
+  Future<int> update(CartModel cartModel) async {
     final db = await database;
-    return await db.update(cartTable, OrderModel.toMap(),
-        where: '$cartColumnId = ?', whereArgs: [OrderModel.id]);
+    return await db.update(cartTable, cartModel.toMap(),
+        where: '$cartColumnId = ?', whereArgs: [cartModel.id]);
   }
 
   Future<double> getItemSubtotal() async {

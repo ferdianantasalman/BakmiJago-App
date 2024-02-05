@@ -1,6 +1,9 @@
-const String baseUrl = 'http://192.168.0.121:8000/';
+const String baseUrl = 'https://bakmijago.isibi.web.id/';
 const String keyRoleId = 'roleId';
 const String userToken = 'userToken';
+const String nameUser = 'nameUser';
+const String uName = 'uName';
+const String uEmail = 'uEmail';
 const String currentUserId = 'userId';
 const String currentPathImg = 'pathImg';
 const String currentListPathImg = 'listPathImg';

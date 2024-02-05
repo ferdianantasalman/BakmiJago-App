@@ -20,7 +20,7 @@ class TextFieldOutlinedComponent extends StatelessWidget {
       keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(color: cYellowLight),
+        hintStyle: const TextStyle(color: cGray),
         contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         focusColor: cYellowDark,
         focusedBorder: OutlineInputBorder(

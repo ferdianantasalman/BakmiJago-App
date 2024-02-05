@@ -1,9 +1,9 @@
 class CartModel {
   int? id;
-  String? image;
   String? name;
   int? price;
   int? quantity;
+  String? image;
   int? subtotalPerItem;
 
   CartModel({

@@ -3,10 +3,12 @@ import 'package:bakmi_jago_app/controllers/page_index_controller.dart';
 import 'package:bakmi_jago_app/controllers/product_controller.dart';
 import 'package:bakmi_jago_app/main.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
+import 'package:bakmi_jago_app/resources/constant.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/views/product/add_product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeProductView extends StatelessWidget {
   const HomeProductView({super.key});
@@ -14,6 +16,10 @@ class HomeProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pController = Get.put(ProductController());
+    pController.getProducts();
+    var box = GetStorage();
+    String userName = box.read(uName);
+
     return Scaffold(
       backgroundColor: cWhite,
       appBar: AppBar(
@@ -49,19 +55,25 @@ class HomeProductView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Reza Oktavian",
+                          userName ?? "Admin",
                           style: bold.copyWith(color: cBlack),
                         ),
-                        Text(
-                          "Pengguna",
-                          style: regular.copyWith(color: cBlack),
-                        )
+                        // Text(
+                        //   "Pengguna",
+                        //   style: regular.copyWith(color: cBlack),
+                        // )
                       ],
                     ),
                     const Spacer(),
                     ElevatedButton(
-                      onPressed: () {
-                        Get.to(const AddProductView());
+                      onPressed: () async {
+                        var res = await Get.to(AddProductView());
+
+                        if (res is bool) {
+                          if (res) {
+                            await pController.getProducts();
+                          }
+                        }
                       },
                       child: Text("Tambah"),
                       style: ElevatedButton.styleFrom(
@@ -115,7 +127,7 @@ class HomeProductView extends StatelessWidget {
                   ? const Center(
                       child: CircularProgressIndicator(color: cYellowDark),
                     )
-                  : pController.name.isEmpty
+                  : pController.listProductModel.isEmpty
                       ? Center(
                           child: Text("Data tidak ditemukan",
                               style: regular.copyWith(
@@ -123,18 +135,43 @@ class HomeProductView extends StatelessWidget {
                       : GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: pController.name.length,
+                          itemCount: pController.listProductModel.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 8.0,
                                   mainAxisSpacing: 8.0,
-                                  mainAxisExtent: 210),
+                                  mainAxisExtent: 260),
                           itemBuilder: (context, index) {
                             return ProductCardComponent(
-                                image: pController.image[index],
-                                name: pController.name[index],
-                                price: pController.price[index]);
+                                onTapEdit: () async {
+                                  pController.populateFieldWhenEdit(
+                                      pController.listProductModel[index]);
+                                  var res = await Get.to(AddProductView(
+                                      productModels:
+                                          pController.listProductModel[index],
+                                      isEdit: true));
+
+                                  if (res is bool) {
+                                    if (res) {
+                                      await pController.getProducts();
+                                    }
+                                  }
+                                },
+                                onTapDelete: () async {
+                                  var res = await pController.deleteProduct(
+                                      pController.listProductModel[index]);
+
+                                  if (res is bool) {
+                                    if (res) {
+                                      Navigator.pop(context, res);
+
+                                      await pController.getProducts();
+                                    }
+                                  }
+                                },
+                                productModel:
+                                    pController.listProductModel[index]);
                           })),
             ],
           ),

@@ -1,154 +1,96 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:path_provider/path_provider.dart';
-import 'package:bakmi_jago_app/models/order_model.dart';
-import 'package:bakmi_jago_app/utils/cart_database_helper.dart';
-import 'package:bakmi_jago_app/views/order/order_view.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+
+import 'package:bakmi_jago_app/models/cart_model.dart';
+import 'package:bakmi_jago_app/models/order_model.dart';
+import 'package:bakmi_jago_app/providers/order_provider.dart';
 
 class OrderController extends GetxController {
+  OrderController({
+    this.id,
+  });
+
+  final int? id;
+
   RxBool isLoading = false.obs;
   Rx<TextEditingController> inputCashController = TextEditingController().obs;
+  Rx<OrderModel> orderModel = OrderModel().obs;
+  RxList<OrderModel> listOrderModel = <OrderModel>[].obs;
+  RxList<OrderModel> listOrderModelInvoice = <OrderModel>[].obs;
 
-  final name = [
-    "Bakmi Jawa",
-    "Bakmi Ayam",
-    "Bakmi Daging",
-    "Bakmi Jawa",
-    "Bakmi Ayam",
-    "Bakmi Daging",
-    "Bakmi Jawa",
-    "Bakmi Ayam",
-    "Bakmi Daging",
-    "Bakmi Daging",
-  ].obs;
+  @override
+  void onInit() {
+    if (id != null) {
+      log("jalan");
+      getDetailOrderByInvoice(id!);
+      log("jalan model == $listOrderModelInvoice");
+    }
+    super.onInit();
+  }
 
-  final image = [
-    "https://img-cdn.medkomtek.com/0wCYZ1rjZxVTDRyy_fN3Gne8XjU=/730x411/smart/filters:quality(100):strip_icc():format(webp)/article/9ukfD6W7n0JJVny9QGRrD/original/034665600_1638512412-Cara-Teman-Tuli-Berlatih-Kemampuan-Bicara.jpg",
-    "https://img-cdn.medkomtek.com/0wCYZ1rjZxVTDRyy_fN3Gne8XjU=/730x411/smart/filters:quality(100):strip_icc():format(webp)/article/9ukfD6W7n0JJVny9QGRrD/original/034665600_1638512412-Cara-Teman-Tuli-Berlatih-Kemampuan-Bicara.jpg",
-    "https://images.genpi.co/resize/1200x675-100/uploads/data/images/komunikasi.webp",
-    "https://img-cdn.medkomtek.com/0wCYZ1rjZxVTDRyy_fN3Gne8XjU=/730x411/smart/filters:quality(100):strip_icc():format(webp)/article/9ukfD6W7n0JJVny9QGRrD/original/034665600_1638512412-Cara-Teman-Tuli-Berlatih-Kemampuan-Bicara.jpg",
-    "https://img-cdn.medkomtek.com/0wCYZ1rjZxVTDRyy_fN3Gne8XjU=/730x411/smart/filters:quality(100):strip_icc():format(webp)/article/9ukfD6W7n0JJVny9QGRrD/original/034665600_1638512412-Cara-Teman-Tuli-Berlatih-Kemampuan-Bicara.jpg",
-    "https://images.genpi.co/resize/1200x675-100/uploads/data/images/komunikasi.webp",
-    "https://img-cdn.medkomtek.com/0wCYZ1rjZxVTDRyy_fN3Gne8XjU=/730x411/smart/filters:quality(100):strip_icc():format(webp)/article/9ukfD6W7n0JJVny9QGRrD/original/034665600_1638512412-Cara-Teman-Tuli-Berlatih-Kemampuan-Bicara.jpg",
-    "https://img-cdn.medkomtek.com/0wCYZ1rjZxVTDRyy_fN3Gne8XjU=/730x411/smart/filters:quality(100):strip_icc():format(webp)/article/9ukfD6W7n0JJVny9QGRrD/original/034665600_1638512412-Cara-Teman-Tuli-Berlatih-Kemampuan-Bicara.jpg",
-    "https://images.genpi.co/resize/1200x675-100/uploads/data/images/komunikasi.webp",
-    "https://img-cdn.medkomtek.com/0wCYZ1rjZxVTDRyy_fN3Gne8XjU=/730x411/smart/filters:quality(100):strip_icc():format(webp)/article/9ukfD6W7n0JJVny9QGRrD/original/034665600_1638512412-Cara-Teman-Tuli-Berlatih-Kemampuan-Bicara.jpg",
-  ].obs;
-
-  final price = [
-    50000,
-    40000,
-    30000,
-    50000,
-    40000,
-    30000,
-    50000,
-    40000,
-    30000,
-    50000,
-  ].obs;
-
-  // Future increaseQuantity(CartModel item) async {
-  //   CartModel cartModel = CartModel(
-  //       id: item.id,
-  //       name: item.name,
-  //       price: item.price,
-  //       quantity: item.quantity! + 1,
-  //       image: item.image,
-  //       subtotalPerItem: item.subtotalPerItem! + item.price!,
-  //       tax: ((item.subtotalPerItem! + item.price!) * 10 / 100).round());
-  //   try {
-  //     await CartDatabaseHelper.instance
-  //         .update(cartModel)
-  //         .then((value) => getCartItems().then((value) => getItemSubtotal()));
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
-
-  // Future decreaseQuantity(CartModel item) async {
-  //   CartModel cartModel = CartModel(
-  //       id: item.id,
-  //       name: item.name,
-  //       price: item.price,
-  //       quantity: item.quantity! - 1,
-  //       image: item.image,
-  //       subtotalPerItem: item.subtotalPerItem! - item.price!,
-  //       tax: ((item.subtotalPerItem! - item.price!) * 10 / 100).round());
-  //   try {
-  //     await CartDatabaseHelper.instance.update(cartModel).then((value) {
-  //       if (cartItems.isNotEmpty) {
-  //         getCartItems().then((value) => getItemSubtotal());
-  //       }
-  //     });
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
-
-  // Future deleteCartItem(int id) async {
-  //   try {
-  //     await CartDatabaseHelper.instance.delete(id).then((value) {
-  //       if (cartItems.isNotEmpty) {
-  //         getCartItems().then((value) => getItemSubtotal());
-  //       }
-  //     });
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
-
-  Future addToCart(OrderModel orderModel) async {
+  Future getOrders() async {
     try {
-      await CartDatabaseHelper.instance.insert(orderModel);
+      isLoading.value = true;
+      final orders = await OrderProvider.getOrders();
+      listOrderModel.value = orders;
+
+      isLoading.value = false;
     } catch (e) {
-      throw Exception(e);
+      throw Exception(e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 
-  Future<dynamic> addOrders() async {
-    // static Future<dynamic> addOrders(List<OrderModel> orders) async {
-    //   final Dio dio = Dio();
-    //   String addOrderUrl = baseUrl + Endpoint.user_add_order;
-    //   var box = GetStorage();
-    //   String token = box.read(userToken);
-    //   List<dynamic> listOrders = [];
-    //   for (var order in orders) {
-    //     listOrders.add({
-    //       "barang_id": order.id!,
-    //       "qty": order.quantity,
-    //     });
-    //   }
+  Future getDetailOrderByInvoice(int id) async {
+    try {
+      isLoading.value = true;
+      final orders = await OrderProvider.getDetailOrderByInvoice(id);
+      listOrderModelInvoice.value = orders;
 
-    //   try {
-    //     var jsonData = {"ordered_items": listOrders};
-    //     var response = await dio.post(
-    //       addOrderUrl,
-    //       data: jsonEncode(jsonData),
-    //       options: Options(headers: {
-    //         'Authorization': 'Bearer $token',
-    //       }),
-    //     );
+      isLoading.value = false;
+    } catch (e) {
+      throw Exception(e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
-    //     if (response.statusCode == 200) {
-    //       // Get.offAll(SuccessView(
-    //       //   invoiceId: response.data["invoice"]["invoice"].toString(),
-    //       // ));
-    //       Get.offAll(OrderView());
-    //       Get.snackbar("Success", "Kamu berhasil membuat pesanan");
-    //       return response.data["invoice"];
-    //     } else {
-    //       Get.snackbar("Error", response.statusMessage!);
-    //       throw Exception(response.data);
-    //     }
-    //   } on DioError catch (e) {
-    //     Get.snackbar("Error", e.response!.statusMessage!);
-    //     throw Exception(e.response?.data);
-    //   }
+  Future getDetailOrderById(int id) async {
+    try {
+      isLoading.value = true;
+      final order = await OrderProvider.getDetailOrderById(id);
+      orderModel.value = order;
+      return orderModel.value;
+    } catch (e) {
+      throw Exception(e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future addOrder(int productId, int qty, int totalPrice) async {
+    try {
+      isLoading.value = true;
+      await OrderProvider.addOrder(productId, qty, totalPrice);
+      isLoading.value = false;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future addOrders(List<CartModel> orders) async {
+    try {
+      isLoading.value = true;
+      await OrderProvider.addOrders(orders);
+      isLoading.value = false;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 }

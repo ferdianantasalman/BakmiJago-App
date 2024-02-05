@@ -2,9 +2,12 @@ import 'package:bakmi_jago_app/components/menu_profile_component.dart';
 import 'package:bakmi_jago_app/controllers/auth_controller.dart';
 import 'package:bakmi_jago_app/controllers/page_index_controller.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
+import 'package:bakmi_jago_app/resources/constant.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
+import 'package:bakmi_jago_app/views/profile/profile_setting_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 // import 'package:get/get.dart';
 
 class ProfileView extends StatelessWidget {
@@ -12,7 +15,12 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+
     final authController = Get.put(AuthController());
+
+    String userName = box.read(uName);
+    String userEmail = box.read(uEmail);
 
     return Scaffold(
       backgroundColor: cWhite,
@@ -42,22 +50,26 @@ class ProfileView extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: Text("Owner",
+                  child: Text(userName ?? "Admin",
                       style: bold.copyWith(color: cYellowDark, fontSize: 20)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
-                  child: Text("owner@gmail.com",
+                  child: Text(userEmail ?? "admin@gmail.com",
                       style: bold.copyWith(color: cYellowDark, fontSize: 15)),
                 ),
-                const Padding(
-                    padding: EdgeInsets.only(top: 30),
+                // const Padding(
+                //     padding: EdgeInsets.only(top: 30),
+                //     child: MenuProfileComponent(
+                //         icon: Icons.abc, name: "Riwayat Order")),
+                Padding(
+                    padding: const EdgeInsets.only(top: 10),
                     child: MenuProfileComponent(
-                        icon: Icons.abc, name: "Riwayat Order")),
-                const Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: MenuProfileComponent(
-                        icon: Icons.ac_unit_rounded, name: "Pengaturan")),
+                        onTap: () {
+                          Get.to(const ProfileSettingView());
+                        },
+                        icon: Icons.ac_unit_rounded,
+                        name: "Atur Printer")),
                 Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: MenuProfileComponent(

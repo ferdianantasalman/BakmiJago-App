@@ -72,12 +72,20 @@ class AuthController extends GetxController {
       ).then((value) async {
         log("LOGIN VALUE => $value");
         log("LOGIN Role => ${value['role_id']}");
+        log("LOGIN NAME => ${value['name']}");
+        log("LOGIN EMAIL => ${value['email']}");
 
-        int roleId = value['role_id'];
+        int roleId = int.parse(value['role_id'].toString());
+        // String userName = value['name'];
         log("roleId => $roleId");
         // int roleId = int.parse(value['role_id'].toString());
         box.write(userToken, value['access_token']);
         box.write(keyRoleId, roleId);
+
+        box.write(uName, "${value['name']}");
+        box.write(uEmail, "${value['email']}");
+        // box.write(nameUser, userName);
+
         log("ROLE => ${box.read(keyRoleId)}");
         log("Token => ${box.read(userToken)}");
         emailController.value.clear();
