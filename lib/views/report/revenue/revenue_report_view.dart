@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bakmi_jago_app/controllers/report_controller.dart';
 import 'package:bakmi_jago_app/controllers/revenue_controller.dart';
+import 'package:bakmi_jago_app/models/revenue_model.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/views/report/revenue/month__revenue_report_view.dart';
@@ -9,7 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RevenueReportView extends StatelessWidget {
-  const RevenueReportView({super.key});
+  const RevenueReportView({
+    super.key,
+    required this.revenueModelToday,
+    required this.revenueModelWeek,
+    required this.revenueModelMonth,
+  });
+
+  final String revenueModelToday;
+  final String revenueModelWeek;
+  final String revenueModelMonth;
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +30,19 @@ class RevenueReportView extends StatelessWidget {
     revenueC.getRevenueWeek();
     revenueC.getRevenueMonth();
 
+    log("""
+    Revenue TOday == ${revenueC.revenueModelToday}
+    Revenue Week == ${revenueC.revenueModelWeek}
+    Revenue Month == ${revenueC.revenueModelMonth}
+    """);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: cWhite,
         foregroundColor: cYellowDark,
         title: Text(
-          "Laporan Pendapatan",
+          "Laporan keuntungan",
           style: bold.copyWith(fontSize: 25, color: cYellowDark),
         ),
         centerTitle: true,

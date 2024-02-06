@@ -33,7 +33,7 @@ class ListTileComponent extends StatelessWidget {
           desc,
           style: const TextStyle(
             color: cYellowPrimary,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
           ),
         ),
         trailing: const Icon(

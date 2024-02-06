@@ -24,35 +24,35 @@ class ItemReportComponent extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         height: 110,
+        width: double.infinity,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
           elevation: 2,
-          child: Center(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 7.0),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   reportModel.name!,
-                  style: bold.copyWith(color: cYellowPrimary, fontSize: 20),
+                  style: bold.copyWith(color: cYellowPrimary, fontSize: 16),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   RupiahUtils.beRupiah(reportModel.price!),
-                  style: regular.copyWith(color: cYellowPrimary, fontSize: 15),
+                  style: bold.copyWith(color: cYellowPrimary, fontSize: 15),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   reportModel.keterangan!,
-                  style: bold.copyWith(color: cYellowPrimary, fontSize: 20),
+                  style: regular.copyWith(color: cYellowPrimary, fontSize: 15),
                 ),
               ],
             ),
-          )),
+          ),
         ),
       ),
     );

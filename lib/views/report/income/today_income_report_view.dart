@@ -14,35 +14,37 @@ class TodayIncomeReportView extends StatelessWidget {
     required this.incomeModel,
   });
 
-  final IncomeModel incomeModel;
+  final String incomeModel;
 
   @override
   Widget build(BuildContext context) {
-    log("INVOICE MODEL == ${incomeModel}");
+    log("INVOICE MODEL MAKAN == ${incomeModel}");
 
     return Scaffold(
-      backgroundColor: cWhite,
-      body: Obx(() => Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Text(
-                      "Pendapatan Bulan Ini",
-                      style: bold.copyWith(fontSize: 22, color: cYellowDark),
-                    ),
+        backgroundColor: cWhite,
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    "Pendapatan Hari Ini",
+                    style: bold.copyWith(fontSize: 22, color: cYellowDark),
                   ),
-                  Text("Total Pendapatan",
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 5),
-                  Text(RupiahUtils.beRupiah(incomeModel.income!),
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 10),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                Text("Total Pendapatan",
+                    style: bold.copyWith(fontSize: 17, color: cYellowDark)),
+                const SizedBox(height: 5),
+                Text(RupiahUtils.beRupiah(int.parse(incomeModel) ?? 5000),
+                    style: bold.copyWith(fontSize: 17, color: cYellowPrimary)),
+                const SizedBox(height: 10),
+              ],
             ),
-          )),
-    );
+          ),
+        ));
   }
 }

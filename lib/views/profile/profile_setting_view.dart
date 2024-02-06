@@ -1,3 +1,4 @@
+import 'package:bakmi_jago_app/components/icon_button_component.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:blue_thermal_printer/blue_thermal_printer.dart';
@@ -76,32 +77,72 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              printer.connect(selectedDevice!);
-                            },
-                            child: const Text("Connect")),
+                        IconButtonComponent(
+                          "Connect",
+                          icon: const Icon(
+                            Icons.bluetooth_connected,
+                          ),
+                          color: cYellowPrimary,
+                          onPressed: () {
+                            printer.connect(selectedDevice!);
+                          },
+                        ),
                         const SizedBox(width: 5),
-                        ElevatedButton(
-                            onPressed: () {
-                              printer.disconnect();
-                            },
-                            child: const Text("Disconnect")),
+                        IconButtonComponent(
+                          "Disconnect",
+                          icon: const Icon(
+                            Icons.bluetooth_disabled,
+                          ),
+                          color: cYellowPrimary,
+                          onPressed: () {
+                            printer.disconnect();
+                          },
+                        ),
                         const SizedBox(width: 5),
-                        ElevatedButton(
-                            onPressed: () async {
-                              if ((await printer.isConnected)!) {
-                                // SIZE
-                                //0: Normal, 1:nORMAL-Bold, 2:Medium-Bold, 3:Large-Bold
-                                // ALIGN
-                                //0: LEFT, 1:CENTER, 2:RIFGT
-                                printer.printCustom("Test Printer", 2, 1);
-                                printer.printCustom("Test Printer", 2, 1);
+                        IconButtonComponent(
+                          "Print",
+                          icon: const Icon(
+                            Icons.print,
+                          ),
+                          color: cYellowPrimary,
+                          onPressed: () async {
+                            if ((await printer.isConnected)!) {
+                              // SIZE
+                              //0: Normal, 1:nORMAL-Bold, 2:Medium-Bold, 3:Large-Bold
+                              // ALIGN
+                              //0: LEFT, 1:CENTER, 2:RIFGT
+                              printer.printCustom("Test Printer", 2, 1);
+                              printer.printCustom("Test Printer", 2, 1);
+                              printer.printNewLine();
+                            }
+                          },
+                        ),
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       printer.connect(selectedDevice!);
+                        //     },
+                        //     child: const Text("Connect")),
+                        // const SizedBox(width: 5),
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       printer.disconnect();
+                        //     },
+                        //     child: const Text("Disconnect")),
+                        // const SizedBox(width: 5),
+                        // ElevatedButton(
+                        //     onPressed: () async {
+                        //       if ((await printer.isConnected)!) {
+                        //         // SIZE
+                        //         //0: Normal, 1:nORMAL-Bold, 2:Medium-Bold, 3:Large-Bold
+                        //         // ALIGN
+                        //         //0: LEFT, 1:CENTER, 2:RIFGT
+                        //         printer.printCustom("Test Printer", 2, 1);
+                        //         printer.printCustom("Test Printer", 2, 1);
 
-                                printer.printNewLine();
-                              }
-                            },
-                            child: const Text("Test"))
+                        //         printer.printNewLine();
+                        //       }
+                        //     },
+                        //     child: const Text("Test"))
                       ],
                     ),
                   ],

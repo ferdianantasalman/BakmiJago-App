@@ -9,9 +9,9 @@ import '../resources/constant.dart';
 import '../resources/endpoint.dart';
 
 class RevenueProvider {
-  static Future<RevenueModel> getRevenueToday() async {
+  static Future getRevenueToday() async {
     String revenueUrl = baseUrl + Endpoint.user_revenue + "today";
-    RevenueModel revenueModel = RevenueModel();
+    String revenueModel = "";
 
     var box = GetStorage();
     String token = box.read(userToken);
@@ -27,16 +27,19 @@ class RevenueProvider {
       var responseJson = json.decode(response.body);
       log("TODAY Revenue=> ${responseJson}");
       if (response.statusCode == 200) {
-        RevenueModel revenueModel = RevenueModel.fromJson(responseJson);
+        log("behasil");
+
+        // RevenueModel revenueModel = RevenueModel.fromJson(responseJson);
       }
 
-      return revenueModel;
+      log("REVENUE TODAY == ${responseJson}");
+      return responseJson['revenue'];
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  static Future<RevenueModel> getRevenueWeek() async {
+  static Future getRevenueWeek() async {
     String revenueUrl = baseUrl + Endpoint.user_revenue + "this_week";
     RevenueModel revenueModel = RevenueModel();
 
@@ -54,16 +57,19 @@ class RevenueProvider {
       var responseJson = json.decode(response.body);
       log("WEEK Revenue=> ${responseJson}");
       if (response.statusCode == 200) {
-        RevenueModel revenueModel = RevenueModel.fromJson(responseJson);
+        log("behasil");
+        // RevenueModel revenueModel = RevenueModel.fromJson(responseJson);
       }
 
-      return revenueModel;
+      log("REVENUE WEEK == ${responseJson['revenue']}");
+
+      return responseJson['revenue'];
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  static Future<RevenueModel> getRevenueMonth() async {
+  static Future getRevenueMonth() async {
     String revenueUrl = baseUrl + Endpoint.user_revenue + "this_month";
     RevenueModel revenueModel = RevenueModel();
 
@@ -81,10 +87,14 @@ class RevenueProvider {
       var responseJson = json.decode(response.body);
       log("TODAY Revenue=> ${responseJson}");
       if (response.statusCode == 200) {
-        RevenueModel revenueModel = RevenueModel.fromJson(responseJson);
-      }
+        log("behasil");
 
-      return revenueModel;
+        // RevenueModel revenueModel = RevenueModel.fromJson(responseJson);
+      }
+      log("REVENUE MONTH == ${responseJson['revenue']}");
+
+      // return responseJson['revenue'] as int;
+      return responseJson['revenue'];
     } catch (e) {
       throw Exception(e);
     }

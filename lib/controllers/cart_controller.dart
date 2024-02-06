@@ -102,7 +102,11 @@ class CartController extends GetxController {
 
   Future deleteAllData() async {
     try {
-      await CartDatabaseHelper.instance.deleteAllData();
+      await CartDatabaseHelper.instance.deleteAllData().then((value) {
+        if (cartItems.isNotEmpty) {
+          getCartItems().then((value) => getItemSubtotal());
+        }
+      });
     } catch (e) {
       throw Exception(e);
     }

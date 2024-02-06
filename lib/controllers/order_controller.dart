@@ -53,6 +53,8 @@ class OrderController extends GetxController {
       final orders = await OrderProvider.getDetailOrderByInvoice(id);
       listOrderModelInvoice.value = orders;
 
+      log("getDetail == ${listOrderModelInvoice.value}");
+
       isLoading.value = false;
     } catch (e) {
       throw Exception(e.toString());
@@ -74,21 +76,26 @@ class OrderController extends GetxController {
     }
   }
 
-  Future addOrder(int productId, int qty, int totalPrice) async {
+  Future<bool> addOrder(int productId, int qty, int totalPrice) async {
     try {
       isLoading.value = true;
       await OrderProvider.addOrder(productId, qty, totalPrice);
       isLoading.value = false;
+
+      return true;
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
-  Future addOrders(List<CartModel> orders) async {
+  Future<bool> addOrders(List<CartModel> orders) async {
     try {
       isLoading.value = true;
+      log("orders == $orders");
       await OrderProvider.addOrders(orders);
       isLoading.value = false;
+
+      return true;
     } catch (e) {
       throw Exception(e.toString());
     }

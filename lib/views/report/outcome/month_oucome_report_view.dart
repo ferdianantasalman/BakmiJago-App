@@ -18,7 +18,7 @@ class MonthOutcomeReportView extends StatelessWidget {
     required this.listReportModel,
   });
 
-  final OutcomeModel outcomeModel;
+  final String outcomeModel;
   final List<ReportModel> listReportModel;
 
   @override
@@ -51,6 +51,8 @@ class MonthOutcomeReportView extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
                     child: Text(
@@ -58,40 +60,27 @@ class MonthOutcomeReportView extends StatelessWidget {
                       style: bold.copyWith(fontSize: 22, color: cYellowDark),
                     ),
                   ),
+                  const SizedBox(height: 15),
                   Text("Total Pengeluaran",
                       style: bold.copyWith(fontSize: 17, color: cYellowDark)),
                   const SizedBox(height: 5),
-                  Text(RupiahUtils.beRupiah(outcomeModel.outcome!),
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 15),
+                  Text(RupiahUtils.beRupiah(int.parse(outcomeModel)),
+                      style:
+                          bold.copyWith(fontSize: 17, color: cYellowPrimary)),
+                  const SizedBox(height: 25),
+                  Divider(),
+                  Divider(),
                   Text("Daftar Pengeluaran",
                       style: bold.copyWith(fontSize: 17, color: cYellowDark)),
                   const SizedBox(height: 5),
                   listReportModel.isEmpty
                       ? const Center(
-                          child: Text('Tidak ada Pengajuan'),
+                          child: Text('Tidak ada pengeluaran'),
                         )
                       : Column(
                           children: listReportModel
-                              .map((element) => ItemReportComponent(
-                                    reportModel: element,
-                                    onTap: () async {
-                                      outcomeC.populateFieldWhenEdit(element);
-                                      var res = await Get.to(AddOutcomeView(
-                                          isEdit: true, reportModel: element));
-
-                                      if (res is bool) {
-                                        if (res) {
-                                          await outcomeC.getReportsToday();
-                                          await outcomeC.getReportsWeek();
-                                          await outcomeC.getReportsMonth();
-                                          await outcomeC.getOutcomeToday();
-                                          await outcomeC.getOutcomeWeek();
-                                          await outcomeC.getOutcomeMonth();
-                                        }
-                                      }
-                                    },
-                                  ))
+                              .map((element) =>
+                                  ItemReportComponent(reportModel: element))
                               .toList()),
                 ],
               ),

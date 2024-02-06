@@ -70,6 +70,8 @@ class OutcomeProvider {
         }
       }
 
+      log("List REPORT MODEL TODAY == $listReportModel");
+
       return listReportModel;
     } catch (e) {
       throw Exception(e);
@@ -241,7 +243,7 @@ class OutcomeProvider {
     return false;
   }
 
-  static Future<OutcomeModel> getOutcomeToday() async {
+  static Future<String> getOutcomeToday() async {
     String outcomeUrl = baseUrl + Endpoint.user_outcome + "today";
     OutcomeModel outcomeModel = OutcomeModel();
 
@@ -262,13 +264,13 @@ class OutcomeProvider {
         OutcomeModel outcomeModel = OutcomeModel.fromJson(responseJson);
       }
 
-      return outcomeModel;
+      return responseJson['outcome'];
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  static Future<OutcomeModel> getOutcomeWeek() async {
+  static Future<String> getOutcomeWeek() async {
     String outcomeUrl = baseUrl + Endpoint.user_outcome + "this_week";
     OutcomeModel outcomeModel = OutcomeModel();
 
@@ -288,14 +290,15 @@ class OutcomeProvider {
       if (response.statusCode == 200) {
         OutcomeModel outcomeModel = OutcomeModel.fromJson(responseJson);
       }
+      log("OUTCOME MODEL TODAY == $outcomeModel");
 
-      return outcomeModel;
+      return responseJson['outcome'];
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  static Future<OutcomeModel> getOutcomeMonth() async {
+  static Future<String> getOutcomeMonth() async {
     String outcomeUrl = baseUrl + Endpoint.user_outcome + "this_month";
     OutcomeModel outcomeModel = OutcomeModel();
 
@@ -316,7 +319,7 @@ class OutcomeProvider {
         OutcomeModel outcomeModel = OutcomeModel.fromJson(responseJson);
       }
 
-      return outcomeModel;
+      return responseJson['outcome'];
     } catch (e) {
       throw Exception(e);
     }

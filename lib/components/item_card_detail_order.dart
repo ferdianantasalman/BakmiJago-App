@@ -2,6 +2,7 @@ import 'package:bakmi_jago_app/components/image_component.dart';
 import 'package:bakmi_jago_app/models/order_model.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
 import 'package:bakmi_jago_app/resources/constant.dart';
+import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/utils/rupiah_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -30,24 +31,17 @@ class ItemCardDetailOrder extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      orderModel.product!.code ?? "Error",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: cYellowPrimary,
-                      ),
-                    ),
+                    Text(orderModel.product?.code ?? "Error",
+                        style: bold.copyWith(color: cYellowDark, fontSize: 20)),
+                    const SizedBox(height: 8),
+                    Text(orderModel.product!.name ?? "Error",
+                        style:
+                            bold.copyWith(color: cYellowPrimary, fontSize: 17)),
                     const SizedBox(height: 8),
                     Text(
-                      orderModel.product!.name ?? "Error",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: cYellowPrimary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      RupiahUtils.beRupiah(orderModel.invoice!.totalPrice!),
+                      RupiahUtils.beRupiah(orderModel.product?.price ?? 0),
+                      style:
+                          regular.copyWith(color: cYellowPrimary, fontSize: 16),
                     ),
                   ],
                 )
@@ -56,7 +50,7 @@ class ItemCardDetailOrder extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               "Jumlah Produk : ${orderModel.qty}",
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: regular.copyWith(color: cYellowPrimary, fontSize: 16),
             )
           ],
         ),

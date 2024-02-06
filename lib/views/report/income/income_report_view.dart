@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bakmi_jago_app/controllers/income_controller.dart';
 import 'package:bakmi_jago_app/controllers/report_controller.dart';
 import 'package:bakmi_jago_app/controllers/revenue_controller.dart';
@@ -6,14 +8,20 @@ import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/views/report/income/month_income_report_view.dart';
 import 'package:bakmi_jago_app/views/report/income/today_income_report_view.dart';
 import 'package:bakmi_jago_app/views/report/income/week_income_report_view.dart';
-import 'package:bakmi_jago_app/views/report/revenue/month__revenue_report_view.dart';
-import 'package:bakmi_jago_app/views/report/revenue/today__revenue_report_view.dart';
-import 'package:bakmi_jago_app/views/report/revenue/week__revenue_report_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class IncomeReportView extends StatelessWidget {
-  const IncomeReportView({super.key});
+  const IncomeReportView({
+    super.key,
+    required this.incomeModelToday,
+    required this.incomeModelWeek,
+    required this.incomeModelMonth,
+  });
+
+  final String incomeModelToday;
+  final String incomeModelWeek;
+  final String incomeModelMonth;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +29,12 @@ class IncomeReportView extends StatelessWidget {
     incomeC.getIncomeToday();
     incomeC.getIncomeWeek();
     incomeC.getIncomeMonth();
+
+    log("""
+    Income TOday == ${incomeC.incomeModelToday.value}
+    Income Week == ${incomeC.incomeModelWeek.value}
+    Income Month == ${incomeC.incomeModelMonth.value}
+    """);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,13 +55,13 @@ class IncomeReportView extends StatelessWidget {
       ),
       body: TabBarView(controller: incomeC.tabController, children: [
         TodayIncomeReportView(
-          incomeModel: incomeC.incomeModelToday.value,
+          incomeModel: incomeModelToday,
         ),
         WeekIncomeReportView(
-          incomeModel: incomeC.incomeModelWeek.value,
+          incomeModel: incomeModelWeek,
         ),
         MonthIncomeReportView(
-          incomeModel: incomeC.incomeModelMonth.value,
+          incomeModel: incomeModelMonth,
         ),
       ]),
     );

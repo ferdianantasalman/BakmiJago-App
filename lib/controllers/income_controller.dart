@@ -19,9 +19,9 @@ class IncomeController extends GetxController
 
   RxBool isLoading = false.obs;
   Rx<TextEditingController> inputCashController = TextEditingController().obs;
-  Rx<IncomeModel> incomeModelToday = IncomeModel().obs;
-  Rx<IncomeModel> incomeModelWeek = IncomeModel().obs;
-  Rx<IncomeModel> incomeModelMonth = IncomeModel().obs;
+  Rx<String> incomeModelToday = "".obs;
+  Rx<String> incomeModelWeek = "".obs;
+  Rx<String> incomeModelMonth = "".obs;
 
   @override
   void onInit() {

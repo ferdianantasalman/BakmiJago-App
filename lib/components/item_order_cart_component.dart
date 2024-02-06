@@ -61,8 +61,8 @@ class ItemOrderCartComponent extends StatelessWidget {
                       ),
                       Text(
                         RupiahUtils.beRupiah(cartModel.subtotalPerItem!),
-                        style: regular.copyWith(
-                            color: cYellowPrimary, fontSize: 15),
+                        style:
+                            bold.copyWith(color: cYellowPrimary, fontSize: 15),
                       ),
                       Row(children: [
                         GestureDetector(

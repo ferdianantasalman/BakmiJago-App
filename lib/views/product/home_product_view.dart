@@ -55,7 +55,8 @@ class HomeProductView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          userName ?? "Admin",
+                          "Owner",
+                          // userName ?? "Admin",
                           style: bold.copyWith(color: cBlack),
                         ),
                         // Text(

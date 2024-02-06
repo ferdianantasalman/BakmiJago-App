@@ -41,9 +41,9 @@ class HistoryView extends StatelessWidget {
       body: TabBarView(controller: iController.tabController, children: [
         TodayHistoryView(
             listInvoiceModelToday: iController.listInvoiceModelToday),
+        WeekHistoryView(listInvoiceModelWeek: iController.listInvoiceModelWeek),
         MonthHistoryView(
             listInvoiceModelMonth: iController.listInvoiceModelMonth),
-        WeekHistoryView(listInvoiceModelWeek: iController.listInvoiceModelWeek)
       ]),
     );
   }

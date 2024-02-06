@@ -66,9 +66,11 @@ class OrderProvider {
         for (var data in responseJson["orders"]) {
           OrderModel orderModel = OrderModel.fromJson(data);
           listOrderModel.add(orderModel);
-          // log("IMAGE == ${baseUrl}public/${productModel.image!}");
+          log("ListOrder == $listOrderModel");
         }
       }
+
+      log("ListOrder Hasil== $listOrderModel");
 
       return listOrderModel;
     } catch (e) {
@@ -143,13 +145,15 @@ class OrderProvider {
     List<dynamic> listOrders = [];
     for (var order in orders) {
       listOrders.add({
-        "prodct_id": order.id!,
+        "product_id": order.id!,
         "qty": order.quantity,
       });
     }
 
     try {
       var jsonData = {"ordered_items": listOrders};
+
+      log("ordered items == $jsonData");
       var response = await dio.post(
         addOrderUrl,
         data: jsonEncode(jsonData),
@@ -165,7 +169,7 @@ class OrderProvider {
         Get.snackbar("Gagal", response.data['message'].toString());
       }
     } on DioError catch (e) {
-      Get.snackbar("Error", e.response!.statusMessage!);
+      Get.snackbar("Gagagl", "Transaksi gagal");
       throw Exception(e.response?.data);
     }
     return false;

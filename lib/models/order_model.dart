@@ -38,8 +38,8 @@ class OrderModel {
     updatedAt = json['updated_at'];
     product =
         json['product'] != null ? ProductModel.fromJson(json['product']) : null;
-    product =
-        json['invoice'] != null ? ProductModel.fromJson(json['invoice']) : null;
+    invoice =
+        json['invoice'] != null ? InvoiceModel.fromJson(json['invoice']) : null;
   }
 
   Map<String, dynamic> toJson() {

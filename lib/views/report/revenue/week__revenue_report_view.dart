@@ -13,7 +13,7 @@ class WeekRevenueReportView extends StatelessWidget {
     required this.revenueModel,
   });
 
-  final RevenueModel revenueModel;
+  final String revenueModel;
 
   @override
   Widget build(BuildContext context) {
@@ -21,40 +21,41 @@ class WeekRevenueReportView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: cWhite,
-      body: Obx(() => Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Text(
-                      "Keuntungan Minggu Ini",
-                      style: bold.copyWith(fontSize: 22, color: cYellowDark),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Text("Total Pendapatan",
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 5),
-                  Text(RupiahUtils.beRupiah(revenueModel.income!),
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 10),
-                  Text("Total Pengeluaran",
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 5),
-                  Text(RupiahUtils.beRupiah(revenueModel.outcome!),
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 10),
-                  Text("Total Keuntungan",
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 5),
-                  Text(RupiahUtils.beRupiah(revenueModel.revenue!),
-                      style: bold.copyWith(fontSize: 17, color: cYellowDark)),
-                  const SizedBox(height: 10),
-                ],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  "Keuntungan Minggu Ini",
+                  style: bold.copyWith(fontSize: 22, color: cYellowDark),
+                ),
               ),
-            ),
-          )),
+              const SizedBox(height: 15),
+              // Text("Total Pendapatan",
+              //     style: bold.copyWith(fontSize: 17, color: cYellowDark)),
+              // const SizedBox(height: 5),
+              // Text(RupiahUtils.beRupiah(int.parse(revenueModel)),
+              //     style: bold.copyWith(fontSize: 17, color: cYellowDark)),
+              // const SizedBox(height: 10),
+              // Text("Total Pengeluaran",
+              //     style: bold.copyWith(fontSize: 17, color: cYellowDark)),
+              // const SizedBox(height: 5),
+              // Text(RupiahUtils.beRupiah(int.parse(revenueModel)),
+              //     style: bold.copyWith(fontSize: 17, color: cYellowDark)),
+              // const SizedBox(height: 10),
+              Text("Total Keuntungan",
+                  style: bold.copyWith(fontSize: 17, color: cYellowDark)),
+              const SizedBox(height: 5),
+              Text(RupiahUtils.beRupiah(int.parse(revenueModel)),
+                  style: bold.copyWith(fontSize: 17, color: cYellowPrimary)),
+              const SizedBox(height: 10),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

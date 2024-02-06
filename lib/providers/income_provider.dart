@@ -9,7 +9,7 @@ import '../resources/constant.dart';
 import '../resources/endpoint.dart';
 
 class IncomeProvider {
-  static Future<IncomeModel> getIncomeToday() async {
+  static Future<String> getIncomeToday() async {
     String incomeUrl = baseUrl + Endpoint.user_income + "today";
     IncomeModel incomeModel = IncomeModel();
 
@@ -25,18 +25,20 @@ class IncomeProvider {
       );
 
       var responseJson = json.decode(response.body);
-      log("TODAY => ${responseJson}");
       if (response.statusCode == 200) {
         IncomeModel incomeModel = IncomeModel.fromJson(responseJson);
       }
+      log("TODAY HEHE => ${responseJson['income']}");
 
-      return incomeModel;
+      log("TODAY HEHE wkw=> ${responseJson['income']}");
+
+      return responseJson['income'];
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  static Future<IncomeModel> getIncomeWeek() async {
+  static Future<String> getIncomeWeek() async {
     String incomeUrl = baseUrl + Endpoint.user_income + "this_week";
     IncomeModel incomeModel = IncomeModel();
 
@@ -57,13 +59,13 @@ class IncomeProvider {
         IncomeModel incomeModel = IncomeModel.fromJson(responseJson);
       }
 
-      return incomeModel;
+      return responseJson['income'];
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  static Future<IncomeModel> getIncomeMonth() async {
+  static Future<String> getIncomeMonth() async {
     String incomeUrl = baseUrl + Endpoint.user_income + "this_month";
     IncomeModel incomeModel = IncomeModel();
 
@@ -84,7 +86,7 @@ class IncomeProvider {
         IncomeModel incomeModel = IncomeModel.fromJson(responseJson);
       }
 
-      return incomeModel;
+      return responseJson['income'];
     } catch (e) {
       throw Exception(e);
     }

@@ -50,12 +50,14 @@ class ProfileView extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: Text(userName ?? "Admin",
+                  child: Text("Owner",
+                      // userName ?? "Admin",
                       style: bold.copyWith(color: cYellowDark, fontSize: 20)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
-                  child: Text(userEmail ?? "admin@gmail.com",
+                  child: Text("owner@gmail.com",
+                      // userEmail ?? "admin@gmail.com",
                       style: bold.copyWith(color: cYellowDark, fontSize: 15)),
                 ),
                 // const Padding(

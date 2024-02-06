@@ -27,9 +27,9 @@ class OutcomeController extends GetxController
   RxList<ReportModel> listReportModelToday = <ReportModel>[].obs;
   RxList<ReportModel> listReportModelWeek = <ReportModel>[].obs;
   RxList<ReportModel> listReportModelMonth = <ReportModel>[].obs;
-  Rx<OutcomeModel> outcomeModelToday = OutcomeModel().obs;
-  Rx<OutcomeModel> outcomeModelWeek = OutcomeModel().obs;
-  Rx<OutcomeModel> outcomeModelMonth = OutcomeModel().obs;
+  Rx<String> outcomeModelToday = "".obs;
+  Rx<String> outcomeModelWeek = "".obs;
+  Rx<String> outcomeModelMonth = "".obs;
 
   @override
   void onInit() {
@@ -90,7 +90,7 @@ class OutcomeController extends GetxController
       final Reports = await OutcomeProvider.getReportsToday();
       listReportModelToday.value = Reports;
 
-      log("RES INVOICE MODEl ===  ${listReportModelToday.value}");
+      log("RES REPORT TODAY ===  ${listReportModelToday.value}");
 
       isLoading.value = false;
     } catch (e) {
