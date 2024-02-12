@@ -21,6 +21,11 @@ class AddOutcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final outcomeC = Get.put(OutcomeController());
+    if (isEdit == false) {
+      outcomeC.nameController.value.clear();
+      outcomeC.priceController.value.clear();
+      outcomeC.descController.value.clear();
+    }
     return Scaffold(
       backgroundColor: cWhite,
       appBar: AppBar(
@@ -37,7 +42,12 @@ class AddOutcomeView extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Text("Nama Pengeluaran",
+                    style: regular.copyWith(color: cDarkYellow)),
+                const SizedBox(height: 5),
                 TextFieldOutlinedComponent(
                     hintText: "Nama Pengeluaran",
                     textController: outcomeC.nameController.value,
@@ -50,11 +60,17 @@ class AddOutcomeView extends StatelessWidget {
                 // const SizedBox(
                 //   height: 20,
                 // ),
+                Text("Jumlah Pengeluaran",
+                    style: regular.copyWith(color: cDarkYellow)),
+                const SizedBox(height: 5),
                 TextFieldOutlinedComponent(
                     hintText: "Jumlah Pengeluaran",
                     textController: outcomeC.priceController.value,
                     keyboardType: TextInputType.number),
                 const SizedBox(height: 10),
+                Text("Keterangan Pengeluaran",
+                    style: regular.copyWith(color: cDarkYellow)),
+                const SizedBox(height: 5),
                 TextFieldOutlinedLargeComponent(
                     hintText: "Keterangan",
                     textController: outcomeC.descController.value,

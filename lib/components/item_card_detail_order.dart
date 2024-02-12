@@ -20,6 +20,13 @@ class ItemCardDetailOrder extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            RichText(
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                text: TextSpan(
+                    text: orderModel.product!.name ?? "Error",
+                    style: bold.copyWith(color: cYellowDark, fontSize: 17))),
+            const SizedBox(height: 12),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -34,24 +41,31 @@ class ItemCardDetailOrder extends StatelessWidget {
                     Text(orderModel.product?.code ?? "Error",
                         style: bold.copyWith(color: cYellowDark, fontSize: 20)),
                     const SizedBox(height: 8),
-                    Text(orderModel.product!.name ?? "Error",
-                        style:
-                            bold.copyWith(color: cYellowPrimary, fontSize: 17)),
+                    Text(
+                      "${orderModel.qty} pcs",
+                      style: bold.copyWith(color: cYellowPrimary, fontSize: 16),
+                    ),
+                    // RichText(
+                    //     maxLines: 3,
+                    //     overflow: TextOverflow.ellipsis,
+                    //     text: TextSpan(
+                    //         text: orderModel.product!.name ?? "Error",
+                    //         style: bold.copyWith(
+                    //             color: cYellowDark, fontSize: 17))),
+                    // Text(orderModel.product!.name ?? "Error",
+                    //     // maxLines: 4,
+                    //     overflow: TextOverflow.visible,
+                    //     style: bold.copyWith(color: cYellowDark, fontSize: 17)),
                     const SizedBox(height: 8),
                     Text(
                       RupiahUtils.beRupiah(orderModel.product?.price ?? 0),
-                      style:
-                          regular.copyWith(color: cYellowPrimary, fontSize: 16),
+                      style: bold.copyWith(color: cYellowPrimary, fontSize: 16),
                     ),
                   ],
                 )
               ],
             ),
-            const SizedBox(height: 12),
-            Text(
-              "Jumlah Produk : ${orderModel.qty}",
-              style: regular.copyWith(color: cYellowPrimary, fontSize: 16),
-            )
+            const SizedBox(width: 12),
           ],
         ),
       ),

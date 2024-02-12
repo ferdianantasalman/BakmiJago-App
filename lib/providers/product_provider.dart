@@ -159,6 +159,7 @@ class ProductProvider {
       });
       if (response.statusCode == 200) {
         Get.snackbar("Berhasil", "Produk berhasil dihapus");
+        Get.back();
 
         box.remove(currentPathImg);
         return true;

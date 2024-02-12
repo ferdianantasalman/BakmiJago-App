@@ -9,8 +9,8 @@ class ImageComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       source,
-      height: 120,
-      width: 120,
+      height: 100,
+      width: 100,
       errorBuilder: (context, error, stackTrace) => Image.asset(
         'assets/images/placeholder.png',
         width: 120,
@@ -24,8 +24,8 @@ class ImageComponent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     child: Image.network(
                       source,
-                      width: 120,
-                      height: 120,
+                      width: 100,
+                      height: 100,
                       fit: BoxFit.contain,
                     ),
                   ),

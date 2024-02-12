@@ -40,8 +40,10 @@ class DetailHistoryView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: listOrderModelInvoice.isEmpty
-                ? const Center(
-                    child: Text('Tidak ada riwayat'),
+                ? Center(
+                    child: Text('Tidak ada riwayat',
+                        style: regular.copyWith(
+                            fontSize: 15, color: cYellowPrimary)),
                   )
                 : SingleChildScrollView(
                     child: listOrderModelInvoice.isNotEmpty

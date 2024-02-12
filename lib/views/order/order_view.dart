@@ -89,7 +89,7 @@ class OrderView extends StatelessWidget {
                                             "${baseUrl}public/products/${itemProduct.image!}",
                                             height: 100,
                                             width: double.infinity,
-                                            fit: BoxFit.contain, errorBuilder:
+                                            fit: BoxFit.fill, errorBuilder:
                                                 (context, error, stackTrace) {
                                           return Image.asset(
                                             "assets/images/placeholder.png",
@@ -103,7 +103,7 @@ class OrderView extends StatelessWidget {
                                       child: Text(
                                         itemProduct.name!,
                                         style: bold.copyWith(
-                                            color: cBlack, fontSize: 15),
+                                            color: cYellowDark, fontSize: 15),
                                       ),
                                     ),
                                     Padding(
@@ -111,7 +111,8 @@ class OrderView extends StatelessWidget {
                                       child: Text(
                                         "Rp. ${itemProduct.price}",
                                         style: bold.copyWith(
-                                            color: cYellowDark, fontSize: 15),
+                                            color: cYellowPrimary,
+                                            fontSize: 15),
                                       ),
                                     ),
                                     Padding(

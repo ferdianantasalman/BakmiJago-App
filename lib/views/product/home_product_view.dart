@@ -41,30 +41,33 @@ class HomeProductView extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   children: [
-                    Container(
-                      height: 32,
-                      width: 32,
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          "https://www.w3schools.com/w3images/avatar2.png",
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Owner",
-                          // userName ?? "Admin",
-                          style: bold.copyWith(color: cBlack),
-                        ),
-                        // Text(
-                        //   "Pengguna",
-                        //   style: regular.copyWith(color: cBlack),
-                        // )
-                      ],
-                    ),
+                    Text("Selamat Datang",
+                        style: bold.copyWith(color: cYellowDark, fontSize: 15)),
+                    // Container(
+                    //   height: 32,
+                    //   width: 32,
+                    //   child: CircleAvatar(
+                    //     backgroundImage: NetworkImage(
+                    //       "https://www.w3schools.com/w3images/avatar2.png",
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(width: 10),
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text(
+                    //       "Owner",
+                    //       // userName ?? "Admin",
+                    //       style:
+                    //           bold.copyWith(color: cYellowDark, fontSize: 15),
+                    //     ),
+                    //     // Text(
+                    //     //   "Pengguna",
+                    //     //   style: regular.copyWith(color: cBlack),
+                    //     // )
+                    //   ],
+                    // ),
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () async {
@@ -89,38 +92,41 @@ class HomeProductView extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: TextField(
-                  style: const TextStyle(color: cDarkYellow),
-                  cursorColor: cDarkYellow,
-                  controller: pController.searchController.value,
-                  decoration: InputDecoration(
-                      hintText: "Search",
-                      hintStyle: const TextStyle(color: cDarkYellow),
-                      focusColor: cDarkYellow,
-                      suffixIcon: IconButton(
-                          icon: const Icon(Icons.clear, color: cDarkYellow),
-                          onPressed: () {
-                            pController.searchController.value.clear();
-                          }),
-                      prefixIcon: IconButton(
-                          icon: const Icon(Icons.search, color: cDarkYellow),
-                          onPressed: () {}),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: cDarkYellow),
-                          borderRadius: BorderRadius.circular(20)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: cDarkYellow),
-                          borderRadius: BorderRadius.circular(20))),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 20),
+              //   child: TextField(
+              //     style: const TextStyle(color: cDarkYellow),
+              //     cursorColor: cDarkYellow,
+              //     controller: pController.searchController.value,
+              //     decoration: InputDecoration(
+              //         hintText: "Search",
+              //         hintStyle: const TextStyle(color: cDarkYellow),
+              //         focusColor: cDarkYellow,
+              //         suffixIcon: IconButton(
+              //             icon: const Icon(Icons.clear, color: cDarkYellow),
+              //             onPressed: () {
+              //               pController.searchController.value.clear();
+              //             }),
+              //         prefixIcon: IconButton(
+              //             icon: const Icon(Icons.search, color: cDarkYellow),
+              //             onPressed: () {}),
+              //         enabledBorder: OutlineInputBorder(
+              //             borderSide: const BorderSide(color: cDarkYellow),
+              //             borderRadius: BorderRadius.circular(20)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderSide: const BorderSide(color: cDarkYellow),
+              //             borderRadius: BorderRadius.circular(20))),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   "Daftar Produk",
                   textAlign: TextAlign.left,
-                  style: bold.copyWith(color: cBlack, fontSize: 20),
+                  style: bold.copyWith(
+                    color: cYellowDark,
+                    fontSize: 20,
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -160,16 +166,11 @@ class HomeProductView extends StatelessWidget {
                                   }
                                 },
                                 onTapDelete: () async {
-                                  var res = await pController.deleteProduct(
+                                  Navigator.pop(context, true);
+
+                                  await pController.deleteProduct(
                                       pController.listProductModel[index]);
-
-                                  if (res is bool) {
-                                    if (res) {
-                                      Navigator.pop(context, res);
-
-                                      await pController.getProducts();
-                                    }
-                                  }
+                                  await pController.getProducts();
                                 },
                                 productModel:
                                     pController.listProductModel[index]);

@@ -32,6 +32,10 @@ class CartController extends GetxController {
     }
   }
 
+  void setSubtotalDefault() {
+    subtotal.value = 0;
+  }
+
   Future getItemSubtotal() async {
     try {
       final subtotal = await CartDatabaseHelper.instance.getItemSubtotal();

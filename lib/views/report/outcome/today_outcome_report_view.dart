@@ -75,8 +75,15 @@ class TodayOutcomeReportView extends StatelessWidget {
                       style: bold.copyWith(fontSize: 17, color: cYellowDark)),
                   const SizedBox(height: 5),
                   listReportModel.isEmpty
-                      ? const Center(
-                          child: Text('Tidak ada pengeluaran'),
+                      ? Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 40),
+                            child: Text(
+                              'Tidak ada pengeluaran',
+                              style: regular.copyWith(
+                                  fontSize: 15, color: cYellowPrimary),
+                            ),
+                          ),
                         )
                       : Column(
                           children: listReportModel

@@ -271,7 +271,8 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                       onPressed: () {
                                                         Navigator.pop(
                                                             context, true);
-                                                        Get.off(OrderView());
+                                                        cartC
+                                                            .setSubtotalDefault();
                                                         orderC
                                                             .inputCashController
                                                             .value
@@ -316,7 +317,7 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                           printer
                                                               .printNewLine();
                                                           printer.printCustom(
-                                                              "Jl. Pulasaren No. 102, Kota Cirebon",
+                                                              "Jl. Pulasaren No. 102, Cirebon",
                                                               1,
                                                               1);
                                                           printer
@@ -330,12 +331,8 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               1);
                                                           printer
                                                               .printNewLine();
-                                                          printer
-                                                              .printNewLine();
                                                           printer.printCustom(
                                                               "Pesanan", 1, 1);
-                                                          printer
-                                                              .printNewLine();
                                                           printer
                                                               .printNewLine();
                                                           for (var cartItem
@@ -344,24 +341,20 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                             printer.printCustom(
                                                                 cartItem.name!,
                                                                 1,
-                                                                1);
+                                                                0);
                                                             printer.printCustom(
                                                                 "${cartItem.quantity!} x " +
                                                                     RupiahUtils.beRupiah(
                                                                         cartItem
                                                                             .price!) +
-                                                                    "       " +
+                                                                    "         " +
                                                                     RupiahUtils.beRupiah(cartItem
                                                                             .quantity! *
                                                                         cartItem
                                                                             .price!),
                                                                 1,
-                                                                1);
-                                                            printer
-                                                                .printNewLine();
+                                                                0);
                                                           }
-                                                          printer
-                                                              .printNewLine();
                                                           printer
                                                               .printNewLine();
                                                           printer.printCustom(
@@ -384,9 +377,10 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               .printNewLine();
                                                           printer.printCustom(
                                                               "Kembalian              " +
-                                                                  RupiahUtils.beRupiah(cartC
-                                                                          .subtotal
-                                                                          .toInt() -
+                                                                  // "1000",
+                                                                  RupiahUtils.beRupiah(int
+                                                                          .parse(
+                                                                              "${orderC.inputCashController.value.text}") -
                                                                       cartC
                                                                           .subtotal
                                                                           .toInt()),
@@ -398,6 +392,12 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               "Terima Kasih",
                                                               1,
                                                               1);
+                                                          printer
+                                                              .printNewLine();
+                                                          printer
+                                                              .printNewLine();
+                                                          printer
+                                                              .printNewLine();
                                                         }
                                                       },
                                                       style: const ButtonStyle(
@@ -417,148 +417,148 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               color:
                                                                   cYellowDark)),
                                                     ),
-                                                    OutlinedButton(
-                                                      onPressed: () async {
-                                                        final controller =
-                                                            ScreenshotController();
-                                                        final bytes = await controller
-                                                            .captureFromWidget(
-                                                                Material(
-                                                                    child:
-                                                                        invoiceCard()));
+                                                    // OutlinedButton(
+                                                    //   onPressed: () async {
+                                                    //     final controller =
+                                                    //         ScreenshotController();
+                                                    //     final bytes = await controller
+                                                    //         .captureFromWidget(
+                                                    //             Material(
+                                                    //                 child:
+                                                    //                     invoiceCard()));
 
-                                                        setState(() {
-                                                          this.bytes = bytes;
-                                                        });
+                                                    //     setState(() {
+                                                    //       this.bytes = bytes;
+                                                    //     });
 
-                                                        // saveImageInvoice(bytes);
+                                                    //     // saveImageInvoice(bytes);
 
-                                                        Get.dialog(Dialog(
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15),
-                                                          ),
-                                                          child: Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10),
-                                                            // height: 500,
-                                                            child: Column(
-                                                              children: [
-                                                                Text(
-                                                                    "Nota Pesanan",
-                                                                    style: bold.copyWith(
-                                                                        fontSize:
-                                                                            20,
-                                                                        color:
-                                                                            cYellowDark)),
-                                                                const SizedBox(
-                                                                    height: 10),
-                                                                if (this.bytes !=
-                                                                    null)
-                                                                  Image.memory(
-                                                                      this.bytes!),
-                                                                // Image.network(
-                                                                //   "https://www.w3schools.com/w3images/avatar2.png",
-                                                                //   width: 300,
-                                                                //   height: 280,
-                                                                // ),
-                                                                const SizedBox(
-                                                                    height: 10),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    OutlinedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Get.back();
-                                                                      },
-                                                                      style:
-                                                                          const ButtonStyle(
-                                                                        foregroundColor:
-                                                                            MaterialStatePropertyAll(cYellowDark),
-                                                                        side:
-                                                                            MaterialStatePropertyAll(
-                                                                          BorderSide(
-                                                                              color: cYellowDark),
-                                                                        ),
-                                                                      ),
-                                                                      child: Text(
-                                                                          "Kembali",
-                                                                          style: regular.copyWith(
-                                                                              fontSize: 15,
-                                                                              color: cYellowDark)),
-                                                                    ),
-                                                                    // const SizedBox(
-                                                                    //     width:
-                                                                    //         10),
-                                                                    // OutlinedButton(
-                                                                    //   onPressed:
-                                                                    //       () {
-                                                                    //     // log("https://www.w3schools.com/w3images/avatar2.png");
-                                                                    //     // FileDownloader.downloadFile(
-                                                                    //     //     url: "https://www.w3schools.com/w3images/avatar2.png",
-                                                                    //     //     onProgress: (name, progress) {
-                                                                    //     //       log("Download Nota");
-                                                                    //     //     },
-                                                                    //     //     onDownloadCompleted: (value) {
-                                                                    //     //       log("Download Succes");
-                                                                    //     //       Get.snackbar(
-                                                                    //     //           "Download Berhasil",
-                                                                    //     //           "Cek Pada Folder Download File Manager");
-                                                                    //     //     });
-                                                                    //     saveImageInvoice(
-                                                                    //         bytes);
-                                                                    //     // log("$bytes");
-                                                                    //     Get.snackbar(
-                                                                    //         "Download Berhasil",
-                                                                    //         "Cek Pada");
-                                                                    //   },
-                                                                    //   style:
-                                                                    //       const ButtonStyle(
-                                                                    //     foregroundColor:
-                                                                    //         MaterialStatePropertyAll(cYellowDark),
-                                                                    //     side:
-                                                                    //         MaterialStatePropertyAll(
-                                                                    //       BorderSide(
-                                                                    //           color: cYellowDark),
-                                                                    //     ),
-                                                                    //   ),
-                                                                    //   child: Text(
-                                                                    //       "Download",
-                                                                    //       style: regular.copyWith(
-                                                                    //           fontSize: 15,
-                                                                    //           color: cYellowDark)),
-                                                                    // ),
-                                                                  ],
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ));
-                                                      },
-                                                      style: const ButtonStyle(
-                                                        foregroundColor:
-                                                            MaterialStatePropertyAll(
-                                                                cYellowDark),
-                                                        side:
-                                                            MaterialStatePropertyAll(
-                                                          BorderSide(
-                                                              color:
-                                                                  cYellowDark),
-                                                        ),
-                                                      ),
-                                                      child: Text("Lihat Nota",
-                                                          style: regular.copyWith(
-                                                              fontSize: 15,
-                                                              color:
-                                                                  cYellowDark)),
-                                                    ),
+                                                    //     Get.dialog(Dialog(
+                                                    //       shape:
+                                                    //           RoundedRectangleBorder(
+                                                    //         borderRadius:
+                                                    //             BorderRadius
+                                                    //                 .circular(
+                                                    //                     15),
+                                                    //       ),
+                                                    //       child: Container(
+                                                    //         padding:
+                                                    //             const EdgeInsets
+                                                    //                 .all(10),
+                                                    //         // height: 500,
+                                                    //         child: Column(
+                                                    //           children: [
+                                                    //             Text(
+                                                    //                 "Nota Pesanan",
+                                                    //                 style: bold.copyWith(
+                                                    //                     fontSize:
+                                                    //                         20,
+                                                    //                     color:
+                                                    //                         cYellowDark)),
+                                                    //             const SizedBox(
+                                                    //                 height: 10),
+                                                    //             if (this.bytes !=
+                                                    //                 null)
+                                                    //               Image.memory(
+                                                    //                   this.bytes!),
+                                                    //             // Image.network(
+                                                    //             //   "https://www.w3schools.com/w3images/avatar2.png",
+                                                    //             //   width: 300,
+                                                    //             //   height: 280,
+                                                    //             // ),
+                                                    //             const SizedBox(
+                                                    //                 height: 10),
+                                                    //             Row(
+                                                    //               mainAxisAlignment:
+                                                    //                   MainAxisAlignment
+                                                    //                       .center,
+                                                    //               children: [
+                                                    //                 OutlinedButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     Get.back();
+                                                    //                   },
+                                                    //                   style:
+                                                    //                       const ButtonStyle(
+                                                    //                     foregroundColor:
+                                                    //                         MaterialStatePropertyAll(cYellowDark),
+                                                    //                     side:
+                                                    //                         MaterialStatePropertyAll(
+                                                    //                       BorderSide(
+                                                    //                           color: cYellowDark),
+                                                    //                     ),
+                                                    //                   ),
+                                                    //                   child: Text(
+                                                    //                       "Kembali",
+                                                    //                       style: regular.copyWith(
+                                                    //                           fontSize: 15,
+                                                    //                           color: cYellowDark)),
+                                                    //                 ),
+                                                    //                 // const SizedBox(
+                                                    //                 //     width:
+                                                    //                 //         10),
+                                                    //                 // OutlinedButton(
+                                                    //                 //   onPressed:
+                                                    //                 //       () {
+                                                    //                 //     // log("https://www.w3schools.com/w3images/avatar2.png");
+                                                    //                 //     // FileDownloader.downloadFile(
+                                                    //                 //     //     url: "https://www.w3schools.com/w3images/avatar2.png",
+                                                    //                 //     //     onProgress: (name, progress) {
+                                                    //                 //     //       log("Download Nota");
+                                                    //                 //     //     },
+                                                    //                 //     //     onDownloadCompleted: (value) {
+                                                    //                 //     //       log("Download Succes");
+                                                    //                 //     //       Get.snackbar(
+                                                    //                 //     //           "Download Berhasil",
+                                                    //                 //     //           "Cek Pada Folder Download File Manager");
+                                                    //                 //     //     });
+                                                    //                 //     saveImageInvoice(
+                                                    //                 //         bytes);
+                                                    //                 //     // log("$bytes");
+                                                    //                 //     Get.snackbar(
+                                                    //                 //         "Download Berhasil",
+                                                    //                 //         "Cek Pada");
+                                                    //                 //   },
+                                                    //                 //   style:
+                                                    //                 //       const ButtonStyle(
+                                                    //                 //     foregroundColor:
+                                                    //                 //         MaterialStatePropertyAll(cYellowDark),
+                                                    //                 //     side:
+                                                    //                 //         MaterialStatePropertyAll(
+                                                    //                 //       BorderSide(
+                                                    //                 //           color: cYellowDark),
+                                                    //                 //     ),
+                                                    //                 //   ),
+                                                    //                 //   child: Text(
+                                                    //                 //       "Download",
+                                                    //                 //       style: regular.copyWith(
+                                                    //                 //           fontSize: 15,
+                                                    //                 //           color: cYellowDark)),
+                                                    //                 // ),
+                                                    //               ],
+                                                    //             )
+                                                    //           ],
+                                                    //         ),
+                                                    //       ),
+                                                    //     ));
+                                                    //   },
+                                                    //   style: const ButtonStyle(
+                                                    //     foregroundColor:
+                                                    //         MaterialStatePropertyAll(
+                                                    //             cYellowDark),
+                                                    //     side:
+                                                    //         MaterialStatePropertyAll(
+                                                    //       BorderSide(
+                                                    //           color:
+                                                    //               cYellowDark),
+                                                    //     ),
+                                                    //   ),
+                                                    //   child: Text("Lihat Nota",
+                                                    //       style: regular.copyWith(
+                                                    //           fontSize: 15,
+                                                    //           color:
+                                                    //               cYellowDark)),
+                                                    // ),
                                                     // OutlinedButton(
                                                     //   onPressed: () {
                                                     //     Get.dialog(Dialog(
@@ -803,7 +803,8 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                       onPressed: () {
                                                         Navigator.pop(
                                                             context, true);
-                                                        Get.off(OrderView());
+                                                        cartC
+                                                            .setSubtotalDefault();
                                                         orderC
                                                             .inputCashController
                                                             .value
@@ -849,7 +850,7 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                           printer
                                                               .printNewLine();
                                                           printer.printCustom(
-                                                              "Jl. Pulasaren No. 102, Kota Cirebon",
+                                                              "Jl. Pulasaren No. 102, Cirebon",
                                                               1,
                                                               1);
                                                           printer
@@ -863,12 +864,8 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               1);
                                                           printer
                                                               .printNewLine();
-                                                          printer
-                                                              .printNewLine();
                                                           printer.printCustom(
                                                               "Pesanan", 1, 1);
-                                                          printer
-                                                              .printNewLine();
                                                           printer
                                                               .printNewLine();
                                                           for (var cartItem
@@ -877,24 +874,20 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                             printer.printCustom(
                                                                 cartItem.name!,
                                                                 1,
-                                                                1);
+                                                                0);
                                                             printer.printCustom(
                                                                 "${cartItem.quantity!} x " +
                                                                     RupiahUtils.beRupiah(
                                                                         cartItem
                                                                             .price!) +
-                                                                    "       " +
+                                                                    "         " +
                                                                     RupiahUtils.beRupiah(cartItem
                                                                             .quantity! *
                                                                         cartItem
                                                                             .price!),
                                                                 1,
-                                                                1);
-                                                            printer
-                                                                .printNewLine();
+                                                                0);
                                                           }
-                                                          printer
-                                                              .printNewLine();
                                                           printer
                                                               .printNewLine();
                                                           printer.printCustom(
@@ -908,15 +901,16 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               .printNewLine();
                                                           printer.printCustom(
                                                               "Bayar                  " +
-                                                                  RupiahUtils.beRupiah(
-                                                                      int.parse(
-                                                                          "${orderC.inputCashController.value.text}")),
+                                                                  RupiahUtils.beRupiah(cartC
+                                                                      .subtotal
+                                                                      .toInt()),
                                                               1,
                                                               1);
                                                           printer
                                                               .printNewLine();
                                                           printer.printCustom(
                                                               "Kembalian              " +
+                                                                  // "1000",
                                                                   RupiahUtils.beRupiah(cartC
                                                                           .subtotal
                                                                           .toInt() -
@@ -931,6 +925,12 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               "Terima Kasih",
                                                               1,
                                                               1);
+                                                          printer
+                                                              .printNewLine();
+                                                          printer
+                                                              .printNewLine();
+                                                          printer
+                                                              .printNewLine();
                                                         }
                                                       },
                                                       style: const ButtonStyle(
@@ -950,148 +950,148 @@ class _OrderCartViewState extends State<OrderCartView> {
                                                               color:
                                                                   cYellowDark)),
                                                     ),
-                                                    OutlinedButton(
-                                                      onPressed: () async {
-                                                        final controller =
-                                                            ScreenshotController();
-                                                        final bytes = await controller
-                                                            .captureFromWidget(
-                                                                Material(
-                                                                    child:
-                                                                        invoiceCard()));
+                                                    // OutlinedButton(
+                                                    //   onPressed: () async {
+                                                    //     final controller =
+                                                    //         ScreenshotController();
+                                                    //     final bytes = await controller
+                                                    //         .captureFromWidget(
+                                                    //             Material(
+                                                    //                 child:
+                                                    //                     invoiceCard()));
 
-                                                        setState(() {
-                                                          this.bytes = bytes;
-                                                        });
+                                                    //     setState(() {
+                                                    //       this.bytes = bytes;
+                                                    //     });
 
-                                                        // saveImageInvoice(bytes);
+                                                    //     // saveImageInvoice(bytes);
 
-                                                        Get.dialog(Dialog(
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15),
-                                                          ),
-                                                          child: Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10),
-                                                            // height: 500,
-                                                            child: Column(
-                                                              children: [
-                                                                Text(
-                                                                    "Nota Pesanan",
-                                                                    style: bold.copyWith(
-                                                                        fontSize:
-                                                                            20,
-                                                                        color:
-                                                                            cYellowDark)),
-                                                                const SizedBox(
-                                                                    height: 10),
-                                                                if (this.bytes !=
-                                                                    null)
-                                                                  Image.memory(
-                                                                      this.bytes!),
-                                                                // Image.network(
-                                                                //   "https://www.w3schools.com/w3images/avatar2.png",
-                                                                //   width: 300,
-                                                                //   height: 280,
-                                                                // ),
-                                                                const SizedBox(
-                                                                    height: 10),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    OutlinedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Get.back();
-                                                                      },
-                                                                      style:
-                                                                          const ButtonStyle(
-                                                                        foregroundColor:
-                                                                            MaterialStatePropertyAll(cYellowDark),
-                                                                        side:
-                                                                            MaterialStatePropertyAll(
-                                                                          BorderSide(
-                                                                              color: cYellowDark),
-                                                                        ),
-                                                                      ),
-                                                                      child: Text(
-                                                                          "Kembali",
-                                                                          style: regular.copyWith(
-                                                                              fontSize: 15,
-                                                                              color: cYellowDark)),
-                                                                    ),
-                                                                    // const SizedBox(
-                                                                    //     width:
-                                                                    //         10),
-                                                                    // OutlinedButton(
-                                                                    //   onPressed:
-                                                                    //       () {
-                                                                    //     // log("https://www.w3schools.com/w3images/avatar2.png");
-                                                                    //     // FileDownloader.downloadFile(
-                                                                    //     //     url: "https://www.w3schools.com/w3images/avatar2.png",
-                                                                    //     //     onProgress: (name, progress) {
-                                                                    //     //       log("Download Nota");
-                                                                    //     //     },
-                                                                    //     //     onDownloadCompleted: (value) {
-                                                                    //     //       log("Download Succes");
-                                                                    //     //       Get.snackbar(
-                                                                    //     //           "Download Berhasil",
-                                                                    //     //           "Cek Pada Folder Download File Manager");
-                                                                    //     //     });
-                                                                    //     saveImageInvoice(
-                                                                    //         bytes);
-                                                                    //     // log("$bytes");
-                                                                    //     Get.snackbar(
-                                                                    //         "Download Berhasil",
-                                                                    //         "Cek Pada");
-                                                                    //   },
-                                                                    //   style:
-                                                                    //       const ButtonStyle(
-                                                                    //     foregroundColor:
-                                                                    //         MaterialStatePropertyAll(cYellowDark),
-                                                                    //     side:
-                                                                    //         MaterialStatePropertyAll(
-                                                                    //       BorderSide(
-                                                                    //           color: cYellowDark),
-                                                                    //     ),
-                                                                    //   ),
-                                                                    //   child: Text(
-                                                                    //       "Download",
-                                                                    //       style: regular.copyWith(
-                                                                    //           fontSize: 15,
-                                                                    //           color: cYellowDark)),
-                                                                    // ),
-                                                                  ],
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ));
-                                                      },
-                                                      style: const ButtonStyle(
-                                                        foregroundColor:
-                                                            MaterialStatePropertyAll(
-                                                                cYellowDark),
-                                                        side:
-                                                            MaterialStatePropertyAll(
-                                                          BorderSide(
-                                                              color:
-                                                                  cYellowDark),
-                                                        ),
-                                                      ),
-                                                      child: Text("Lihat Nota",
-                                                          style: regular.copyWith(
-                                                              fontSize: 15,
-                                                              color:
-                                                                  cYellowDark)),
-                                                    ),
+                                                    //     Get.dialog(Dialog(
+                                                    //       shape:
+                                                    //           RoundedRectangleBorder(
+                                                    //         borderRadius:
+                                                    //             BorderRadius
+                                                    //                 .circular(
+                                                    //                     15),
+                                                    //       ),
+                                                    //       child: Container(
+                                                    //         padding:
+                                                    //             const EdgeInsets
+                                                    //                 .all(10),
+                                                    //         // height: 500,
+                                                    //         child: Column(
+                                                    //           children: [
+                                                    //             Text(
+                                                    //                 "Nota Pesanan",
+                                                    //                 style: bold.copyWith(
+                                                    //                     fontSize:
+                                                    //                         20,
+                                                    //                     color:
+                                                    //                         cYellowDark)),
+                                                    //             const SizedBox(
+                                                    //                 height: 10),
+                                                    //             if (this.bytes !=
+                                                    //                 null)
+                                                    //               Image.memory(
+                                                    //                   this.bytes!),
+                                                    //             // Image.network(
+                                                    //             //   "https://www.w3schools.com/w3images/avatar2.png",
+                                                    //             //   width: 300,
+                                                    //             //   height: 280,
+                                                    //             // ),
+                                                    //             const SizedBox(
+                                                    //                 height: 10),
+                                                    //             Row(
+                                                    //               mainAxisAlignment:
+                                                    //                   MainAxisAlignment
+                                                    //                       .center,
+                                                    //               children: [
+                                                    //                 OutlinedButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     Get.back();
+                                                    //                   },
+                                                    //                   style:
+                                                    //                       const ButtonStyle(
+                                                    //                     foregroundColor:
+                                                    //                         MaterialStatePropertyAll(cYellowDark),
+                                                    //                     side:
+                                                    //                         MaterialStatePropertyAll(
+                                                    //                       BorderSide(
+                                                    //                           color: cYellowDark),
+                                                    //                     ),
+                                                    //                   ),
+                                                    //                   child: Text(
+                                                    //                       "Kembali",
+                                                    //                       style: regular.copyWith(
+                                                    //                           fontSize: 15,
+                                                    //                           color: cYellowDark)),
+                                                    //                 ),
+                                                    //                 // const SizedBox(
+                                                    //                 //     width:
+                                                    //                 //         10),
+                                                    //                 // OutlinedButton(
+                                                    //                 //   onPressed:
+                                                    //                 //       () {
+                                                    //                 //     // log("https://www.w3schools.com/w3images/avatar2.png");
+                                                    //                 //     // FileDownloader.downloadFile(
+                                                    //                 //     //     url: "https://www.w3schools.com/w3images/avatar2.png",
+                                                    //                 //     //     onProgress: (name, progress) {
+                                                    //                 //     //       log("Download Nota");
+                                                    //                 //     //     },
+                                                    //                 //     //     onDownloadCompleted: (value) {
+                                                    //                 //     //       log("Download Succes");
+                                                    //                 //     //       Get.snackbar(
+                                                    //                 //     //           "Download Berhasil",
+                                                    //                 //     //           "Cek Pada Folder Download File Manager");
+                                                    //                 //     //     });
+                                                    //                 //     saveImageInvoice(
+                                                    //                 //         bytes);
+                                                    //                 //     // log("$bytes");
+                                                    //                 //     Get.snackbar(
+                                                    //                 //         "Download Berhasil",
+                                                    //                 //         "Cek Pada");
+                                                    //                 //   },
+                                                    //                 //   style:
+                                                    //                 //       const ButtonStyle(
+                                                    //                 //     foregroundColor:
+                                                    //                 //         MaterialStatePropertyAll(cYellowDark),
+                                                    //                 //     side:
+                                                    //                 //         MaterialStatePropertyAll(
+                                                    //                 //       BorderSide(
+                                                    //                 //           color: cYellowDark),
+                                                    //                 //     ),
+                                                    //                 //   ),
+                                                    //                 //   child: Text(
+                                                    //                 //       "Download",
+                                                    //                 //       style: regular.copyWith(
+                                                    //                 //           fontSize: 15,
+                                                    //                 //           color: cYellowDark)),
+                                                    //                 // ),
+                                                    //               ],
+                                                    //             )
+                                                    //           ],
+                                                    //         ),
+                                                    //       ),
+                                                    //     ));
+                                                    //   },
+                                                    //   style: const ButtonStyle(
+                                                    //     foregroundColor:
+                                                    //         MaterialStatePropertyAll(
+                                                    //             cYellowDark),
+                                                    //     side:
+                                                    //         MaterialStatePropertyAll(
+                                                    //       BorderSide(
+                                                    //           color:
+                                                    //               cYellowDark),
+                                                    //     ),
+                                                    //   ),
+                                                    //   child: Text("Lihat Nota",
+                                                    //       style: regular.copyWith(
+                                                    //           fontSize: 15,
+                                                    //           color:
+                                                    //               cYellowDark)),
+                                                    // ),
                                                     // OutlinedButton(
                                                     //   onPressed: () {
                                                     //     Get.dialog(Dialog(

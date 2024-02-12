@@ -4,6 +4,7 @@ import 'package:bakmi_jago_app/components/item_history_component.dart';
 import 'package:bakmi_jago_app/controllers/order_controller.dart';
 import 'package:bakmi_jago_app/models/invoice/invoice_model.dart';
 import 'package:bakmi_jago_app/resources/color.dart';
+import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/views/history/detail_history_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,8 +28,10 @@ class WeekHistoryView extends StatelessWidget {
       body: Obx(() => Padding(
             padding: const EdgeInsets.all(10.0),
             child: listInvoiceModelWeek.isEmpty
-                ? const Center(
-                    child: Text('Tidak ada riwayat'),
+                ? Center(
+                    child: Text('Tidak ada riwayat',
+                        style: regular.copyWith(
+                            fontSize: 15, color: cYellowPrimary)),
                   )
                 : SingleChildScrollView(
                     child: Column(

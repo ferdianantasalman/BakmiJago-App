@@ -34,8 +34,7 @@ class ProductCardComponent extends StatelessWidget {
                   "${baseUrl}public/products/${productModel.image}",
                   width: double.infinity,
                   height: 100,
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) {
+                  fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) {
                 return Image.asset(
                   "assets/images/placeholder.png",
                   width: 90,
@@ -47,14 +46,14 @@ class ProductCardComponent extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: Text(
               productModel.name!,
-              style: bold.copyWith(color: cBlack, fontSize: 15),
+              style: bold.copyWith(color: cYellowDark, fontSize: 15),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(2),
             child: Text(
               "Rp. ${productModel.price!}",
-              style: bold.copyWith(color: cYellowDark, fontSize: 15),
+              style: bold.copyWith(color: cYellowPrimary, fontSize: 15),
             ),
           ),
           Padding(

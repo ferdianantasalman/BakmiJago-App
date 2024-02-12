@@ -3,6 +3,7 @@ import 'package:bakmi_jago_app/resources/font.dart';
 import 'package:bakmi_jago_app/utils/dotted_line.dart';
 import 'package:bakmi_jago_app/utils/rupiah_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 Widget invoiceCard() => Container(
       padding: const EdgeInsets.all(10),
@@ -17,12 +18,12 @@ Widget invoiceCard() => Container(
           ),
           const SizedBox(height: 10),
           Center(
-            child: Text("Jl. Lawanggada No, Kota Cirebon",
+            child: Text("Jl. Pulasaren No 102, Cirebon",
                 style: regular.copyWith(fontSize: 15, color: cBlack)),
           ),
           const SizedBox(height: 10),
           Center(
-            child: Text("12 Desember 2022 - 22:00:10",
+            child: Text(DateFormat('dd-MM-yyyy').format(DateTime.now()),
                 style: regular.copyWith(fontSize: 15, color: cBlack)),
           ),
           const SizedBox(height: 30),
